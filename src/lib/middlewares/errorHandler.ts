@@ -1,8 +1,11 @@
 import { NextApiRequest } from 'next';
 import { Middleware } from 'next-api-route-middleware';
 
-const errorHandler: Middleware<NextApiRequest> = async (req, res, next) => {
-  // nichts tun
+const requestErrorHandler: Middleware<NextApiRequest> = async (
+  req,
+  res,
+  next
+) => {
   try {
     await next();
   } catch (e) {
@@ -10,4 +13,4 @@ const errorHandler: Middleware<NextApiRequest> = async (req, res, next) => {
   }
 };
 
-export default errorHandler;
+export default requestErrorHandler;
