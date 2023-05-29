@@ -1,9 +1,12 @@
-import { startBrowser } from '@lib/utils/browser';
-import Image from 'next/image';
+import getGames from '@lib/api/football/tipico/getGames';
 
-const getTipicoFootballGames = () => {
-  //   startBrowser();
-  return <h1>Hello World!</h1>;
+const getFootballGames = async (req, res) => {
+  try {
+    const games = await getGames();
+    return JSON.stringify(games);
+  } catch (e) {
+    throw e;
+  }
 };
 
-export default getTipicoFootballGames;
+export default getFootballGames;
