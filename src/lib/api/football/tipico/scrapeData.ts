@@ -1,4 +1,4 @@
-import { startBrowser } from '../../../utils/browser';
+import { startBrowser } from '@lib/utils/browser';
 
 /* Scraping Logik für Tipico */
 export const scrapeData = async (): Promise<string[] | undefined> => {
