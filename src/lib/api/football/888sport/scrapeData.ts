@@ -1,8 +1,11 @@
 import { Browser } from 'puppeteer';
-import { startBrowser } from '@lib/utils/browser';
+import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 
 /* Scraping Logik für Betway */
-const scrapeUrl = async (url: string, browser: Browser) => {
+const scrapeSingleUrl = async (
+  url: string,
+  browser: Browser
+): Promise<string[]> => {
   try {
     const page = await browser.newPage();
 
@@ -14,7 +17,7 @@ const scrapeUrl = async (url: string, browser: Browser) => {
     const pageHasNoGames = (await page.$('.bb-message-button-card')) !== null;
     if (pageHasNoGames) {
       page.close();
-      return;
+      return [''];
     }
 
     //Warte bis Spiele geladen sind
@@ -60,7 +63,7 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
         TODO: Frankreich (Ligue 1 [x], Ligue 2)
   */
   /* TODO: Weitere Wettbewerbe integrieren */
-  const urls = [
+  const urlList = [
     'https://www.888sport.de/fussball/deutschland/bundesliga/',
     'https://www.888sport.de/fussball/italien/serie-a/',
     'https://www.888sport.de/fu%C3%9Fball/italien/italien-serie-b-t-319569/',
@@ -72,22 +75,7 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
   ];
 
   try {
-    const browser = await startBrowser();
-
-    if (browser === undefined) throw new Error('Browser is undefined');
-
-    const scrapedData: string[][] = [];
-
-    /* Promises in der Queue und wartet bis alle ausgeführt wurden */
-    const promises = urls.map(async (url) => {
-      const data = await scrapeUrl(url, browser);
-      if (data !== undefined) scrapedData.push(data);
-    });
-    await Promise.all(promises);
-
-    // Schließt den Browser und gibt Array zurück
-    browser.close();
-    return scrapedData;
+    return await promisifyRequestsList(urlList, scrapeSingleUrl);
   } catch (e) {
     throw e;
   }

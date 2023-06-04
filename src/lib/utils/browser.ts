@@ -1,6 +1,6 @@
 import { Browser, launch } from 'puppeteer';
 
-export const startBrowser = async (): Promise<Browser | undefined> => {
+const startBrowser = async (): Promise<Browser | undefined> => {
   let browser;
   try {
     console.log('Opening Browser...');
@@ -14,3 +14,5 @@ export const startBrowser = async (): Promise<Browser | undefined> => {
   }
   return browser;
 };
+
+export default startBrowser;

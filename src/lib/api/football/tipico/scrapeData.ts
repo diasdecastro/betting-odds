@@ -1,7 +1,7 @@
-import { startBrowser } from '@lib/utils/browser';
+import startBrowser from '@lib/utils/browser';
 
 /* Scraping Logik für Tipico */
-export const scrapeData = async (): Promise<string[] | undefined> => {
+export const scrapeData = async (): Promise<string[]> => {
   /* 
         Url zu scrapen
         Enthält: 
@@ -12,6 +12,7 @@ export const scrapeData = async (): Promise<string[] | undefined> => {
             Türkei (Süper Lig, 1.Lig)
             Frankreich (Ligue 1, Ligue 2)
     */
+  /* TODO: Weitere Wettbewerbe hinzufügen */
   const url =
     'https://sports.tipico.de/de/alle/1101/7201,46201,31201,1201,32201,30201/19301,4301,101301,62301,33301,3301,34301,84301,1301,37301,36301,43301,8343301,41301,42301';
 

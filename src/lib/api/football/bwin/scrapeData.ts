@@ -1,9 +1,12 @@
 import { Browser } from 'puppeteer';
-import { startBrowser } from '@lib/utils/browser';
+import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 
 /* Scraping Logik für Betway */
 /* FIXME: Timeout fixen */
-const scrapeUrl = async (url: string, browser: Browser) => {
+const scrapeSingleUrl = async (
+  url: string,
+  browser: Browser
+): Promise<string[]> => {
   try {
     const page = await browser.newPage();
 
@@ -73,22 +76,7 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
   ];
 
   try {
-    const browser = await startBrowser();
-
-    if (browser === undefined) throw new Error('Browser is undefined');
-
-    const scrapedData: string[][] = [];
-
-    /* Promises in der Queue und wartet bis alle ausgeführt wurden */
-    const promises = urlList.map(async (url) => {
-      const data = await scrapeUrl(url, browser);
-      if (data !== undefined) scrapedData.push(data);
-    });
-    await Promise.all(promises);
-
-    // Schließt den Browser und gibt Array zurück
-    browser.close();
-    return scrapedData;
+    return await promisifyRequestsList(urlList, scrapeSingleUrl);
   } catch (e) {
     throw e;
   }
