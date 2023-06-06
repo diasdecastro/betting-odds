@@ -20,10 +20,8 @@ interface FootballGameModel {
   und gibt Array mit Elemente im gewünschten Format zurück */
 const getGames = async (): Promise<FootballGameModel[]> => {
   const games: FootballGameModel[] = [];
-  let competitionCounter = 0;
 
   const scrapedData: string[][] | undefined = await scrapeData();
-  // return scrapedData;
 
   scrapedData?.map((competition) => {
     competition.map((competitionElem, index) => {
@@ -53,9 +51,6 @@ const getGames = async (): Promise<FootballGameModel[]> => {
             .eq(2)
             .text();
 
-          /* console.log(
-            games?.find((obj) => obj.competition === competition[0])?.games
-          ); */
           games
             ?.find((obj) => obj.competition === competition[0])
             ?.games.push({
@@ -68,8 +63,6 @@ const getGames = async (): Promise<FootballGameModel[]> => {
               },
             });
         });
-
-        competitionCounter += 1;
       }
     });
   });
