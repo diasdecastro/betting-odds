@@ -34,7 +34,7 @@ const scrapeSingleUrl = async (
       );
 
       //Matches in competition
-      $('.eventList__content-section')
+      $('.tournamentEventsList')
         .toArray()
         .forEach((item) => {
           results.push(item.outerHTML);
@@ -53,26 +53,18 @@ const scrapeSingleUrl = async (
 
 /* Füttert Scraping Funktion mit den Urls, sammelt die Rückgaben und gibt sie in einer Array zürück */
 const scrapeData = async (): Promise<string[][] | undefined> => {
-  /* 
-    Urls zu scrapen
-    Enthält: 
-        TODO: Deutschland (Bundesliga [x], 2.Bundesliga, 3.Bundesliga) 
-        TODO: England (Premier League, League 1, League 2)
-        Italien (Serie A, Serie B)
-        Spanien (La Liga, La Liga 2)
-        Türkei (Süper Lig, 1.Lig)
-        TODO: Frankreich (Ligue 1 [x], Ligue 2)
-  */
   /* TODO: Weitere Wettbewerbe integrieren */
   const urlList = [
-    'https://www.888sport.de/fussball/deutschland/bundesliga/',
-    'https://www.888sport.de/fussball/italien/serie-a/',
-    'https://www.888sport.de/fu%C3%9Fball/italien/italien-serie-b-t-319569/',
-    'https://www.888sport.de/fussball/spanien/la-liga/',
-    'https://www.888sport.de/fu%C3%9Fball/spanien/spain-segunda-division-t-319629/',
-    'https://www.888sport.de/fussball/frankreich/ligue-1/',
-    'https://www.888sport.de/fu%C3%9Fball/t%C3%BCrkei/t%C3%BCrkei-s%C3%BCper-lig-t-320219/',
-    'https://www.888sport.de/fu%C3%9Fball/t%C3%BCrkei/t%C3%BCrkei-1-lig-t-320221/',
+    'https://www.888sport.de/fussball/deutschland/bundesliga/', //deu, Bundesliga
+    'https://www.888sport.de/fussball/italien/serie-a/', //ita, Serie A
+    'https://www.888sport.de/fu%C3%9Fball/italien/italien-serie-b-t-319569/', //ita, Serie B
+    'https://www.888sport.de/fussball/spanien/la-liga/', //esp, La Liga
+    'https://www.888sport.de/fu%C3%9Fball/spanien/spain-segunda-division-t-319629/', //esp, Segunda Div
+    'https://www.888sport.de/fussball/frankreich/ligue-1/', //fra, Ligue 1
+    'https://www.888sport.de/fu%C3%9Fball/t%C3%BCrkei/t%C3%BCrkei-s%C3%BCper-lig-t-320219/', //tur, Süper Lig
+    'https://www.888sport.de/fu%C3%9Fball/t%C3%BCrkei/t%C3%BCrkei-1-lig-t-320221/', //tur, 1 Lig
+    'https://www.888sport.de/fu%C3%9Fball/argentinien/argentina-primera-nacional-t-320380/', //arg, Primera Nacional
+    'https://www.888sport.de/fu%C3%9Fball/argentinien/argentina-superliga-t-153362/', //arg, Superliga
   ];
 
   try {
