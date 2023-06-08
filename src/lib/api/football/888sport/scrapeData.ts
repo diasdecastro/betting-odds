@@ -1,4 +1,5 @@
 import { Browser } from 'puppeteer';
+
 import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 
 /* Scraping Logik für Betway */

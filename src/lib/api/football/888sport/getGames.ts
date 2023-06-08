@@ -3,6 +3,7 @@ import scrapeData from './scrapeData';
 
 /* Datenstruktur für ein Spiel */
 /* TODO: Spiel Datum/Uhrzeit hinzufügen */
+/* TODO: Link hinzufügen */
 interface FootballGameModel {
   competition: string;
   games: {
@@ -23,16 +24,15 @@ const getGames = async (): Promise<FootballGameModel[]> => {
 
   const scrapedData: string[][] | undefined = await scrapeData();
 
-  scrapedData?.map((competition) => {
-    competition.map((competitionElem, index) => {
+  scrapedData?.forEach((competition) => {
+    competition?.forEach((competitionElem, index) => {
       const $ = cheerio.load(competitionElem);
       // first element is always the name of the competition. the rest are games bundled by date
       if (index === 0) {
         games.push({ competition: competitionElem, games: [] });
       } else {
         // Yeah spread operator. Danke Stackoverflow für die Lösung, die ich nicht verstehe.
-        // TODO: Den Kack verstehen
-        [...$('.bet-card')].map((game) => {
+        [...$('.bet-card')].forEach((game) => {
           const team1 = $(game)
             .find('.event-description__competitor-text')
             .eq(0)
