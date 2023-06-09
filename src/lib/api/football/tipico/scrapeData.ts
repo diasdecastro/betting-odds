@@ -13,11 +13,18 @@ const scrapeSingleUrl = async (
   });
 
   await page.waitForSelector(
-    '.SportsCompetitionsEvents-styles-competitions-events-block'
+    '.SportsCompetitionsEvents-styles-competitions-events-block, .NoEventsCta-styles-button'
   );
 
+  // return empty, if no events
+  const pageHasNoGames = (await page.$('.NoEventsCta-styles-button')) !== null;
+  if (pageHasNoGames) {
+    await page.close();
+    return [''];
+  }
+
   // Speichert Elemente von der Seite zurückgegeben werden in einer Array
-  const scrapedData: string[] = await page.evaluate(() => {
+  const pageData: string[] = await page.evaluate(() => {
     const results: string[] = [];
 
     //Competition name
@@ -35,7 +42,7 @@ const scrapeSingleUrl = async (
 
   await page.close();
 
-  return scrapedData;
+  return pageData;
 };
 
 /* Scraping Logik für Tipico */
