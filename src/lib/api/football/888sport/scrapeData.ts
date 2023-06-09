@@ -14,17 +14,20 @@ const scrapeSingleUrl = async (
     await page.addScriptTag({
       url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
     });
-    //Check ob Seite Spiele hat
+
+    //Warte bis Spiele geladen sind
+    await page.waitForSelector(
+      '.eventList__content-section, .bb-message-button-card'
+    );
+
+    //if no games, return empty
     const pageHasNoGames = (await page.$('.bb-message-button-card')) !== null;
     if (pageHasNoGames) {
       page.close();
       return [''];
     }
 
-    //Warte bis Spiele geladen sind
-    await page.waitForSelector('.eventList__content-section');
-
-    const scrapedData: string[] = await page.evaluate(() => {
+    const pageData: string[] = await page.evaluate(() => {
       const results: string[] = [];
       //Competition Name
       results.push(
@@ -45,7 +48,7 @@ const scrapeSingleUrl = async (
 
     page.close();
 
-    return scrapedData;
+    return pageData;
   } catch (e) {
     throw e;
   }

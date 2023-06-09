@@ -24,9 +24,9 @@ interface FootballGameModel {
 const getGames = async (): Promise<FootballGameModel[]> => {
   const games: FootballGameModel[] = [];
 
-  const scrapedData: string[][] | undefined = await scrapeData();
+  const pageData: string[][] | undefined = await scrapeData();
 
-  scrapedData?.forEach((competition) => {
+  pageData?.forEach((competition) => {
     // go to next competition, if competition has no name
     if (!competition[0]) return;
 
