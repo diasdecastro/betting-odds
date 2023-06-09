@@ -18,7 +18,7 @@ const scrapeSingleUrl = async (
     // TODO: Wait for element and close page, if no games
     // await page.waitForSelector('.gl-MarketGroupContainer ');
 
-    const scrapedData: string[] = await page.evaluate(() => {
+    const pageData: string[] = await page.evaluate(() => {
       const results: string[] = [];
       //Push Wettbewerbsname
       results.push($('.header__page-title').text());
@@ -33,9 +33,12 @@ const scrapeSingleUrl = async (
       return results;
     });
 
+    //push competition url as last element for link. link for game is inaccessible.
+    pageData.push(url);
+
     page.close();
 
-    return scrapedData;
+    return pageData;
   } catch (e) {
     throw e;
   }
@@ -43,27 +46,21 @@ const scrapeSingleUrl = async (
 
 /* Füttert Scraping Funktion mit den Urls, sammelt die Rückgaben und gibt sie in einer Array zürück */
 const scrapeData = async (): Promise<string[][] | undefined> => {
-  /* 
-    Urls zu scrapen
-    Enthält: 
-        TODO: Deutschland (Bundesliga[x], 2.Bundesliga[x], 3.Bundesliga) 
-        TODO: England (Premier League[x], League 1, League 2)
-        Italien (Serie A, Serie B)
-        Spanien (La Liga, La Liga 2)
-        TODO: Türkei (Süper Lig[x], 1.Lig)
-        TODO: Frankreich (Ligue 1, Ligue 2)
-  */
   /* TODO: Weitere Wettbewerbe integrieren */
   const urlList = [
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/47/fo/c', //en, pl
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9736/fo/c66', //es, la liga
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9740/fo/c66', //es, la liga 2
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9737/fo/c66', //it, serie a
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9739/fo/c66', //it, serie b
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9746/fo/c66', //de, bl
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9747/fo/c66', //de, 2.bl
-    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9953/fo/c66', //tr, süper lig
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/47/fo/c', //eng, pl
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9736/fo/c66', //esp, la liga
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9740/fo/c66', //esp, la liga 2
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9737/fo/c66', //ita, serie a
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9739/fo/c66', //ita, serie b
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9746/fo/c66', //deu, bl
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9747/fo/c66', //deu, 2.bl
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9953/fo/c66', //tur, süper lig
     'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/79/fo/c66', //int, cl
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9750/fo/c66', //bra, serie a
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/14737/fo/c66', //jpn, j-league
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15794/fo/c66', //arg, primera nacional
+    'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9751/fo/c66', //arg, liga profesional
   ];
 
   try {
