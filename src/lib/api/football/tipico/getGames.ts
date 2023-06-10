@@ -23,11 +23,10 @@ interface FootballGameModel {
   und gibt Array mit Elemente im gewünschten Format zurück */
 const getGames = async (): Promise<FootballGameModel[]> => {
   const games: Array<FootballGameModel> = [];
-  let competitionName: string;
 
-  const scrapedData: string[][] | undefined = await scrapeData();
+  const pageData: string[][] | undefined = await scrapeData();
   // fill games array with data
-  scrapedData?.forEach((competition) => {
+  pageData?.forEach((competition) => {
     competition?.forEach((competitionElem, index) => {
       const $ = cheerio.load(competitionElem);
 

@@ -13,11 +13,18 @@ const scrapeSingleUrl = async (
   });
 
   await page.waitForSelector(
-    '.SportsCompetitionsEvents-styles-competitions-events-block'
+    '.SportsCompetitionsEvents-styles-competitions-events-block, .NoEventsCta-styles-button'
   );
 
+  // return empty, if no events
+  const pageHasNoGames = (await page.$('.NoEventsCta-styles-button')) !== null;
+  if (pageHasNoGames) {
+    await page.close();
+    return [''];
+  }
+
   // Speichert Elemente von der Seite zurückgegeben werden in einer Array
-  const scrapedData: string[] = await page.evaluate(() => {
+  const pageData: string[] = await page.evaluate(() => {
     const results: string[] = [];
 
     //Competition name
@@ -35,7 +42,7 @@ const scrapeSingleUrl = async (
 
   await page.close();
 
-  return scrapedData;
+  return pageData;
 };
 
 /* Scraping Logik für Tipico */
@@ -60,8 +67,6 @@ export const scrapeData = async (): Promise<string[][]> => {
     'https://sports.tipico.de/de/alle/1101/3034301', //jpn, J-League 2
     'https://sports.tipico.de/de/alle/1101/10327301', //jpn, J-League 3
   ];
-  // const url =
-  //   'https://sports.tipico.de/de/alle/1101/7201,46201,31201,1201,32201,30201/19301,4301,101301,62301,33301,3301,34301,84301,1301,37301,36301,43301,8343301,41301,42301';
 
   try {
     return await promisifyRequestsList(urlList, scrapeSingleUrl);
