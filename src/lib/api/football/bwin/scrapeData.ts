@@ -49,7 +49,7 @@ die Rückgaben und gibt sie in einer Array zürück */
 /* TODO: Promisefy mehrfache URL-Scraping in Hilfsfunktion auslagern */
 const scrapeData = async (): Promise<string[][] | undefined> => {
   /* TODO: Weitere Wettbewerbe integrieren */
-  /* const urlList = [
+  const urlList = [
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/deutschland-17/bundesliga-102842', //deu, bundesliga
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/deutschland-17/2-bundesliga-102845', //deu, 2. bundesliga
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/deutschland-17/3-liga-102377', //deu, 3. bundesliga
@@ -64,11 +64,6 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/t%C3%BCrkei-31/1-lig-102226', //tur, 1. lig
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/frankreich-16/ligue-1-102843', //fra, ligue 1
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/frankreich-16/ligue-2-102376', //fra, ligue 2
-    'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/argentinien-38/liga-profesional-de-futbol-102540', //arg, liga profesional
-    'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/argentinien-38/primera-nacional-102234', //arg, primera nacional
-  ]; */
-
-  const urlList = [
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/argentinien-38/liga-profesional-de-futbol-102540', //arg, liga profesional
     'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/argentinien-38/primera-nacional-102234', //arg, primera nacional
   ];
