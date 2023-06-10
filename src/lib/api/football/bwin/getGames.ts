@@ -6,6 +6,8 @@ import scrapeData from './scrapeData';
 interface FootballGameModel {
   competition: string;
   games: {
+    link: string;
+    date: string;
     team1: string;
     team2: string;
     odds: {
@@ -20,7 +22,6 @@ interface FootballGameModel {
   und gibt Array mit Elemente im gewünschten Format zurück */
 const getGames = async (): Promise<FootballGameModel[]> => {
   const games: FootballGameModel[] = [];
-  let competitionCounter = 0;
 
   const scrapedData: string[][] | undefined = await scrapeData();
 
@@ -30,6 +31,8 @@ const getGames = async (): Promise<FootballGameModel[]> => {
       if (index === 0) {
         games.push({ competition: gamesInCompetition, games: [] });
       } else {
+        const link = $('a').attr('href') || '';
+        const date = $('.starting-time').text();
         const team1 = $('.participants-pair-game > .participant-wrapper')
           .eq(0)
           .find('.participant')
@@ -57,19 +60,21 @@ const getGames = async (): Promise<FootballGameModel[]> => {
           .eq(2)
           .text();
 
-        games[competitionCounter]['games'].push({
-          team1: team1,
-          team2: team2,
-          odds: {
-            team1Win: team1Win,
-            draw: draw,
-            team2Win: team2Win,
-          },
-        });
+        games
+          ?.find((obj) => obj.competition === competition[0])
+          ?.games.push({
+            link: link,
+            date: date,
+            team1: team1,
+            team2: team2,
+            odds: {
+              team1Win: team1Win,
+              draw: draw,
+              team2Win: team2Win,
+            },
+          });
       }
     });
-
-    competitionCounter += 1;
   });
 
   return games;
