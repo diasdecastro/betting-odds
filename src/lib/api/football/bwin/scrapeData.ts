@@ -2,7 +2,6 @@ import { Browser } from 'puppeteer';
 import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 
 /* Scraping Logik für Betway */
-/* FIXME: Timeout fixen */
 const scrapeSingleUrl = async (
   url: string,
   browser: Browser
@@ -10,8 +9,9 @@ const scrapeSingleUrl = async (
   try {
     const page = await browser.newPage();
 
-    await page.goto(url);
+    await page.goto(url, { timeout: 0 });
     await page.bringToFront();
+    // await page.waitForNavigation({ timeout: 0, waitUntil: 'domcontentloaded' });
     await page.waitForSelector('.widget-slot');
     await page.addScriptTag({
       url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
