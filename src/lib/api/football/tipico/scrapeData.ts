@@ -1,45 +1,70 @@
-import startBrowser from '@lib/utils/browser';
+import { Browser } from 'puppeteer';
+
+import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
+
+const scrapeSingleUrl = async (
+  url: string,
+  browser: Browser
+): Promise<string[]> => {
+  const page = await browser.newPage();
+  await page.goto(url);
+  await page.addScriptTag({
+    url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+  });
+
+  await page.waitForSelector(
+    '.SportsCompetitionsEvents-styles-competitions-events-block'
+  );
+
+  // Speichert Elemente von der Seite zurückgegeben werden in einer Array
+  const scrapedData: string[] = await page.evaluate(() => {
+    const results: string[] = [];
+
+    //Competition name
+    results.push($('.CompetitionTitle-styles-title').text());
+
+    //Matches in competition
+    $('.SportsCompetitionsEvents-styles-competitions-events-block')
+      .toArray()
+      .forEach((item) => {
+        results.push(item.outerHTML);
+      });
+
+    return results;
+  });
+
+  await page.close();
+
+  return scrapedData;
+};
 
 /* Scraping Logik für Tipico */
-export const scrapeData = async (): Promise<string[]> => {
-  /* 
-        Url zu scrapen
-        Enthält: 
-            Deutschland (Bundesliga, 2.Bundesliga, 3.Bundesliga) 
-            England (Premier League, League 1, League 2)
-            Italien (Serie A, Serie B)
-            Spanien (La Liga, La Liga 2)
-            Türkei (Süper Lig, 1.Lig)
-            Frankreich (Ligue 1, Ligue 2)
-    */
+export const scrapeData = async (): Promise<string[][]> => {
   /* TODO: Weitere Wettbewerbe hinzufügen */
-  const url =
-    'https://sports.tipico.de/de/alle/1101/7201,46201,31201,1201,32201,30201/19301,4301,101301,62301,33301,3301,34301,84301,1301,37301,36301,43301,8343301,41301,42301';
+  const urlList = [
+    'https://sports.tipico.de/de/alle/1101/742110', //int, Champions League
+    'https://sports.tipico.de/de/alle/1101/68301', //arg, Liga Profesional de Futbol
+    'https://sports.tipico.de/de/alle/1101/37309301', //arg, Primera Nacional, Gruppe A
+    'https://sports.tipico.de/de/alle/1101/85016301', //arg, Primera B, Clausura
+    'https://sports.tipico.de/de/alle/1101/83301', //bra, serie a
+    'https://sports.tipico.de/de/alle/1101/1449301', //bra, serie b
+    'https://sports.tipico.de/de/alle/1101/27213301', //bra, serie c, gruppe a
+    'https://sports.tipico.de/de/alle/1101/652301', //chi, super league
+    'https://sports.tipico.de/de/alle/1101/16887301', //ecu, primera a
+    'https://sports.tipico.de/de/alle/1101/77667301', //ecu, primera b
+    'https://sports.tipico.de/de/alle/1101/31301', //fin, veikkausliiga
+    'https://sports.tipico.de/de/alle/1101/527301', //fin, Ykkonen
+    'https://sports.tipico.de/de/alle/1101/79301', //irl, Premier Division
+    'https://sports.tipico.de/de/alle/1101/718301', //irl, First Division
+    'https://sports.tipico.de/de/alle/1101/82301', //jpn, J-League
+    'https://sports.tipico.de/de/alle/1101/3034301', //jpn, J-League 2
+    'https://sports.tipico.de/de/alle/1101/10327301', //jpn, J-League 3
+  ];
+  // const url =
+  //   'https://sports.tipico.de/de/alle/1101/7201,46201,31201,1201,32201,30201/19301,4301,101301,62301,33301,3301,34301,84301,1301,37301,36301,43301,8343301,41301,42301';
 
   try {
-    // Browser wird geöffnet
-    const browser = await startBrowser();
-    if (browser === undefined) throw new Error('Browser is undefined');
-
-    // Öffnet neues Tab im Browser, geht zu Seite und fügt Jquery zur Seite hinzu
-    const page = await browser.newPage();
-    await page.goto(url);
-    await page.addScriptTag({
-      url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
-    });
-
-    // Speichert Elemente von der Seite zurückgegeben werden in einer Array
-    const scrapedData: string[] = await page.evaluate(() => {
-      return $('div.Sport-styles-sport-container > *')
-        .toArray()
-        .map((item) => item.outerHTML);
-    });
-
-    await page.close();
-
-    // Schließt Browser und gibt Array zurück
-    await browser.close();
-    return scrapedData;
+    return await promisifyRequestsList(urlList, scrapeSingleUrl);
   } catch (e) {
     throw e;
   }
