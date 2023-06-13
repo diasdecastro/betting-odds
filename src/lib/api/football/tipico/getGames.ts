@@ -2,8 +2,6 @@ import * as cheerio from 'cheerio';
 import { scrapeData } from './scrapeData';
 
 /* Datenstruktur für ein Spiel */
-/* TODO: Spiel Datum/Uhrzeit hinzufügen */
-/* TODO: Link hinzufügen */
 interface FootballGameModel {
   competition: string;
   games: {

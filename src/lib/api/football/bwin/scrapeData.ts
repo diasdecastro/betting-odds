@@ -12,7 +12,6 @@ const scrapeSingleUrl = async (
 
     await page.goto(url, { timeout: 0 });
     await page.bringToFront();
-    // await page.waitForNavigation({ timeout: 0, waitUntil: 'domcontentloaded' });
     await page.waitForSelector('.widget-slot');
     await page.addScriptTag({
       url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
@@ -47,7 +46,6 @@ const scrapeSingleUrl = async (
 
 /* Füttert Scraping Funktion mit den Urls, sammelt 
 die Rückgaben und gibt sie in einer Array zürück */
-/* TODO: Promisefy mehrfache URL-Scraping in Hilfsfunktion auslagern */
 const scrapeData = async (): Promise<string[][] | undefined> => {
   /* TODO: Weitere Wettbewerbe integrieren */
   const urlList = [

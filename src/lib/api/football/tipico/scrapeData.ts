@@ -68,6 +68,10 @@ export const scrapeData = async (): Promise<string[][]> => {
     'https://sports.tipico.de/de/alle/1101/10327301', //jpn, J-League 3
   ];
 
+  /* const urlList = [
+    'https://sports.tipico.de/de/alle/tennis/atp/stuttgart-deutschland',
+  ]; */
+
   try {
     return await promisifyRequestsList(urlList, scrapeSingleUrl);
   } catch (e) {
