@@ -29,6 +29,8 @@ const getGames = async (): Promise<FootballGameModel[]> => {
       const $ = cheerio.load(competitionElem);
 
       if (index === 0) {
+        //continue to next competition, if has no competition name
+        if (competitionElem === '') return;
         games.push({ competition: competitionElem, games: [] });
       } else {
         let date = '';

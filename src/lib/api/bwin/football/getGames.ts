@@ -25,10 +25,12 @@ const getGames = async (): Promise<FootballGameModel[]> => {
   const scrapedData: string[][] | undefined = await scrapeData();
 
   scrapedData?.map((competition) => {
-    competition.map((gamesInCompetition, index) => {
-      const $ = cheerio.load(gamesInCompetition);
+    competition.map((competitionElem, index) => {
+      const $ = cheerio.load(competitionElem);
       if (index === 0) {
-        games.push({ competition: gamesInCompetition, games: [] });
+        //continue to next competition, if has no competition name
+        if (competitionElem === '') return;
+        games.push({ competition: competitionElem, games: [] });
       } else {
         const link = $('a').attr('href') || '';
         const date = $('.starting-time').text();
