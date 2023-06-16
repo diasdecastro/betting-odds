@@ -5,8 +5,6 @@ import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 export const scrapeData = async (): Promise<string[][]> => {
   /* TODO: Weitere Wettbewerbe hinzufügen */
   const urlList = [
-    'https://sports.tipico.de/de/alle/1101/', //
-
     //europe
     'https://sports.tipico.de/de/alle/1101/1301', //eng, premier league
     'https://sports.tipico.de/de/alle/1101/31301', //fin, veikkausliiga
