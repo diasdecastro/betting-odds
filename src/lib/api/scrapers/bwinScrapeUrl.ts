@@ -24,11 +24,17 @@ const bwinScrapeUrl = async (
     const pageData: string[] = await page.evaluate(() => {
       const results = [];
       //push competition name first
+      const country = $('.breadcrumb-item')
+        .eq(-2)
+        .find('.breadcrumb-title')
+        .text();
+
       const competition = $('.breadcrumb-item')
         .last()
         .find('.breadcrumb-title')
         .text();
-      results.push(competition);
+
+      results.push(`${country} / ${competition}`);
 
       $('.grid-group-x1')
         .find('.grid-event-wrapper')
@@ -44,6 +50,7 @@ const bwinScrapeUrl = async (
 
     return pageData;
   } catch (e) {
+    return [''];
     throw e;
   }
 };
