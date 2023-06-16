@@ -1,4 +1,4 @@
-import getGames from '@lib/api/football/888sport/getGames';
+import getGames from '@lib/api/888sport/football/getGames';
 
 const getFootballGames = async (req, res) => {
   try {

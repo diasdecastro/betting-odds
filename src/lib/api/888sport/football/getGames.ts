@@ -32,6 +32,8 @@ const getGames = async (): Promise<FootballGameModel[]> => {
       const $ = cheerio.load(competitionElem);
       // first element is always the name of the competition. the rest are games bundled by date
       if (index === 0) {
+        //continue to next competition, if has no competition name
+        if (competitionElem === '') return;
         games.push({ competition: competitionElem, games: [] });
       } else {
         [...$('.eventList__content-section')].forEach((gameDay) => {
