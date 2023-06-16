@@ -42,15 +42,9 @@ const getGames = async (): Promise<FootballGameModel[]> => {
           [...$(gameDay).find('.bet-card')].forEach((game) => {
             const link = $(game).find('.event-description').attr('href') || '';
 
-            const team1 = $(game)
-              .find('.event-description__competitor-text')
-              .eq(0)
-              .text();
+            const team1 = $(game).find('.event-name__text').eq(0).text();
 
-            const team2 = $(game)
-              .find('.event-description__competitor-text')
-              .eq(1)
-              .text();
+            const team2 = $(game).find('.event-name__text').eq(1).text();
 
             const team1Win = $(game)
               .find('.bb-sport-event__selection')

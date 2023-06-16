@@ -7,18 +7,18 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
   const urlList = [
     //europe
     'https://www.888sport.de/fu%C3%9Fball/finnland/finland-ykkonen-t-328706/', //fin, YKKONEN
-    'https://www.888sport.de/fussball/frankreich/ligue-1/', //fra, Ligue 1
-    'https://www.888sport.de/fussball/deutschland/bundesliga/', //ger, Bundesliga
+    'https://www.888sport.de/football/france/ligue-1-20232024-t-481457/', //fra, Ligue 1
+    'https://www.888sport.de/football/germany/bundesliga-20232024-t-481461/', //ger, Bundesliga
     'https://www.888sport.de/football/ireland/ireland-premier-division-t-321690/', //irl, PREMIER DIVISION
     'https://www.888sport.de/fu%C3%9Fball/island/island-first-division-t-328311/', //isl, FIRST DIVISION
     'https://www.888sport.de/fu%C3%9Fball/island/island-second-division-t-328219/', //isl, SECOND DIVISION
     'https://www.888sport.de/fu%C3%9Fball/island/island-frauen-pokal-t-327743/', //isl, FRAUEN POKAL
     'https://www.888sport.de/fu%C3%9Fball/island/island-third-division-t-328408/', //isl, THIRD DIVISION
-    'https://www.888sport.de/fussball/italien/serie-a/', //ita, Serie A
+    'https://www.888sport.de/football/italy/serie-a-20232024-t-481459/', //ita, Serie A
     'https://www.888sport.de/fu%C3%9Fball/italien/italien-serie-b-t-319569/', //ita, Serie B
-    'https://www.888sport.de/fussball/spanien/la-liga/', //spa, La Liga
+    'https://www.888sport.de/fussball/spanien/la-liga/', //spa, La Liga //TODO: Check Link
     'https://www.888sport.de/fu%C3%9Fball/spanien/spain-segunda-division-t-319629/', //spa, Segunda Div
-    'https://www.888sport.de/fussball/schweden/allsvenskan/', //swe, ALLSVENSKAN
+    'https://www.888sport.de/football/sweden/allsvenskan/', //swe, ALLSVENSKAN
     'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-damallsvenskan-t-328722/', //swe, DAMALLSVENSKAN
     'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-1-norra-t-328028/', //swe, DIVISION 1 NORRA
     'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-2-norra-g%C3%B6taland-t-330931/', //swe, DIVISION 2 NORRA GÖTALAND
@@ -37,8 +37,8 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
     //america
     'https://www.888sport.de/fu%C3%9Fball/argentinien/argentina-primera-nacional-t-320380/', //arg, Primera Nacional
     'https://www.888sport.de/fu%C3%9Fball/argentinien/argentina-superliga-t-153362/', //arg, Superliga
-    'https://www.888sport.de/football/brazilian-campeonato-brasileiro-serie-a-betting/', //bra, SERIE A
-    'https://www.888sport.de/fu%C3%9Fball/brasilien/brasilien-serie-b-t-329509/', //bra, SERIE B
+    'https://www.888sport.de/football/brazil/serie-a/', //bra, SERIE A
+    'https://www.888sport.de/football/brazil/serie-a/', //bra, SERIE B
     'https://www.888sport.de/fu%C3%9Fball/brasilien/brasilien-serie-c-t-330341/', //bra, SERIE C
     'https://www.888sport.de/fu%C3%9Fball/chile/chile-primera-division-b-t-323275/', //chi, PRIMERA DIVISION B
     'https://www.888sport.de/fu%C3%9Fball/chile/chile-primera-division-t-320184/', //chi, PRIMERA DIVISION

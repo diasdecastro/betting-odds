@@ -52,6 +52,8 @@ const _888sportScrapeUrl = async (
 
     return pageData;
   } catch (e) {
+    console.log(e);
+    return [''];
     throw e;
   }
 };
