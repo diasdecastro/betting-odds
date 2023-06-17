@@ -55,10 +55,7 @@ const getGames = async (): Promise<FootballGameModel[]> => {
           // let date = $('.bb-content-section__title-item').eq(0).text();
 
           [...$(gameDay).find('.bet-card')].forEach((game) => {
-            const date =
-              $(game)
-                .find('time.c-event-schedule__info-time')
-                .attr('datetime') || '';
+            const date = $(game).find('time').attr('datetime') || '';
 
             const link = $(game).find('.event-description').attr('href') || '';
 

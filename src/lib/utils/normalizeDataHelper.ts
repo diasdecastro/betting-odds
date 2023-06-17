@@ -25,7 +25,8 @@ export const normalizeOddsString = (oddsString: string): number => {
   //CASE: ratio (eg. 3/2)
   else if (oddsString.includes('/')) {
     return (
-      parseInt(oddsString.split('/')[0]) / parseInt(oddsString.split('/')[0])
+      parseFloat(oddsString.split('/')[0]) /
+      parseFloat(oddsString.split('/')[1])
     );
   }
 
