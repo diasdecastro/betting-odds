@@ -26,7 +26,7 @@ const spreadexScrapeUrl = async (
     const pageData: string[] = await page.evaluate(() => {
       const results: string[] = [];
       //Push Wettbewerbsname
-      results.push($('.header__page-title').text());
+      results.push($('.header__page-title').text().replace('-', '/'));
       //Push Spiele
       $('#matches')
         .find('content')

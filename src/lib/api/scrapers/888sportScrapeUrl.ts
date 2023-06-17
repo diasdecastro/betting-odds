@@ -32,10 +32,16 @@ const _888sportScrapeUrl = async (
     const pageData: string[] = await page.evaluate(() => {
       const results: string[] = [];
       //Competition Name
+      const competition = $('.bb-breadcrumbs__lastVisible')
+        .find('.bb-breadcrumbs__levelTwo__text')
+        .text();
+
+      //Original string: Deutschland Bundesliga. String inside push function: Deutschland / Bundesliga
       results.push(
-        $('.bb-breadcrumbs__lastVisible')
-          .find('.bb-breadcrumbs__levelTwo__text')
-          .text()
+        `${competition.substring(
+          0,
+          competition.indexOf(' ')
+        )} / ${competition.substring(competition.indexOf(' ') + 1)}`
       );
 
       //Matches in competition

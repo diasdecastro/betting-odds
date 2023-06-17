@@ -1,5 +1,8 @@
+import moment from 'moment';
+
 export const normalizeDateFormat = (dateString: string): Date => {
   //TODO: Komplette Date Normalisierungslogik ausarbeiten
+  //This is the shitshow
   return new Date();
 };
 
@@ -14,6 +17,17 @@ export const normalizeTeamName = (teamName: string): string => {
 };
 
 export const normalizeOddsString = (oddsString: string): number => {
-  //TODO: Komplette Odds Normalisierungslogik ausarbeiten
+  //CASE: comma as decimal (eg. 1,50)
+  const commaAsDecimalPoint = /^\d+(,\d+)*$/;
+  if (commaAsDecimalPoint.test(oddsString)) {
+    return parseFloat(oddsString.replace(',', '.'));
+  }
+  //CASE: ratio (eg. 3/2)
+  else if (oddsString.includes('/')) {
+    return (
+      parseInt(oddsString.split('/')[0]) / parseInt(oddsString.split('/')[0])
+    );
+  }
+
   return parseFloat(oddsString);
 };
