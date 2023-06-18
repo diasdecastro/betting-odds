@@ -15,7 +15,7 @@ interface FootballGameModel {
   };
   games: {
     link: string;
-    date: string;
+    date: Date;
     team1: string;
     team2: string;
     odds: {
@@ -86,9 +86,10 @@ const getGames = async (): Promise<FootballGameModel[]> => {
               )
               ?.games.push({
                 link: link,
-                date: date,
+                date: normalizeDateFormat(date, '888sport'),
                 team1: team1,
                 team2: team2,
+                //TODO: Odds richtig interpretieren, sodass es einheitlich ist.
                 odds: {
                   team1Win: normalizeOddsString(team1Win),
                   draw: normalizeOddsString(draw),

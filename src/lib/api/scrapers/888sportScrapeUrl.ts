@@ -58,7 +58,7 @@ const _888sportScrapeUrl = async (
 
     return pageData;
   } catch (e) {
-    console.log(e);
+    //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];
     throw e;
   }

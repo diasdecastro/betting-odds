@@ -17,7 +17,7 @@ interface FootballGameModel {
   };
   games: {
     link: string;
-    date: string;
+    date: Date;
     team1: string;
     team2: string;
     odds: {
@@ -50,7 +50,12 @@ const getGames = async (): Promise<FootballGameModel[]> => {
         });
       } else {
         const link = $('a').attr('href') || '';
-        const date = $('.starting-time').text();
+        let date = '';
+        if ($('.live-icon').length > 0) {
+          date = 'live';
+        } else {
+          date = $('.starting-time').text().replace(' / ', ', ');
+        }
         const team1 = $('.participants-pair-game > .participant-wrapper')
           .eq(0)
           .find('.participant')
@@ -86,7 +91,7 @@ const getGames = async (): Promise<FootballGameModel[]> => {
           )
           ?.games.push({
             link: link,
-            date: date,
+            date: normalizeDateFormat(date, 'bwin'),
             team1: team1,
             team2: team2,
             odds: {

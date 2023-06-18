@@ -15,7 +15,7 @@ interface FootballGameModel {
   };
   games: {
     link: string;
-    date: string;
+    date: Date;
     team1: string;
     team2: string;
     odds: {
@@ -49,6 +49,7 @@ const getGames = async (): Promise<FootballGameModel[]> => {
         });
       } else {
         let date = '';
+        let dateTime = '';
         [
           ...$(
             '.SportsCompetitionsEvents-styles-competitions-events-block'
@@ -57,7 +58,8 @@ const getGames = async (): Promise<FootballGameModel[]> => {
           if ($(item).hasClass('EventDateHeader-styles-event-date-header')) {
             date = $(item).text();
           } else {
-            date += ', ' + $(item).find('.EventDateTime-styles-time').text();
+            dateTime =
+              date + ', ' + $(item).find('.EventDateTime-styles-time').text();
             const link = '/de/event' + $(item).attr('href')?.split('/event')[1];
             const team1 = $(item)
               .find('.EventTeams-styles-team-title')
@@ -88,7 +90,7 @@ const getGames = async (): Promise<FootballGameModel[]> => {
               )
               ?.games.push({
                 link: link,
-                date: date,
+                date: normalizeDateFormat(dateTime, 'tipico'),
                 team1: team1,
                 team2: team2,
                 odds: {
