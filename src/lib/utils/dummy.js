@@ -3009,3 +3009,10 @@ export const bwinDummyData = [
     ],
   },
 ];
+
+const allData = [
+  ...tipicoDummyData,
+  ..._888sportDummyData,
+  ...spreadexDummyData,
+  ...bwinDummyData,
+];
