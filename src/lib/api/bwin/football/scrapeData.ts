@@ -1,4 +1,4 @@
-import bwinScrapeUrl from '@lib/api/scrapers/bwinScrapeUrl';
+import bwinScrapeUrl from '@lib/api/bwin/bwinScrapeUrl';
 import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 
 /* Füttert Scraping Funktion mit den Urls, sammelt 
