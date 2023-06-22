@@ -13,8 +13,8 @@ const promisifyRequestsList = async (
     const scrapedData: string[][] = [];
 
     /* Promises in der Queue und wartet bis alle ausgeführt wurden */
-    const promises = urlList.map(async (url) => {
-      const data = await scrapeSingleUrl(url, browser);
+    const promises: Promise<void>[] = urlList.map(async (url) => {
+      const data: string[] = await scrapeSingleUrl(url, browser);
       if (data !== undefined) scrapedData.push(data);
     });
     await Promise.all(promises);

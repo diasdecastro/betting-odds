@@ -1,4 +1,4 @@
-import spreadexScrapeUrl from '@lib/api/scrapers/spreadexScrapeUrl';
+import spreadexScrapeUrl from '@lib/api/spreadex/spreadexScrapeUrl';
 import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 
 /* Füttert Scraping Funktion mit den Urls, sammelt die Rückgaben und gibt sie in einer Array zürück */
