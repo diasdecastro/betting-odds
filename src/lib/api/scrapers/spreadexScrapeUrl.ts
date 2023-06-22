@@ -21,12 +21,14 @@ const spreadexScrapeUrl = async (
     // TODO: Wait for element and close page, if no games
     // await page.waitForSelector('.gl-MarketGroupContainer ');
 
-    //FIXME: Competition Name wird gepusht, auch wenn keine Spiel sind
-    //FIXME: "football" wird als Competition Name gepusht, wenn kein Competition Name vorhanden ist
     const pageData: string[] = await page.evaluate(() => {
+      // Wenn keine Matches, return leeres Array
+      if ($('#matches').length === 0) return [''];
+
       const results: string[] = [];
       //Push Wettbewerbsname
-      results.push($('.header__page-title').text());
+      results.push($('.header__page-title').text().replace('-', '/'));
+
       //Push Spiele
       $('#matches')
         .find('content')
@@ -45,7 +47,9 @@ const spreadexScrapeUrl = async (
 
     return pageData;
   } catch (e) {
-    throw e;
+    //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
+    return [''];
+    // throw e;
   }
 };
 

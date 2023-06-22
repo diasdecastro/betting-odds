@@ -22,13 +22,22 @@ const bwinScrapeUrl = async (
     //FIXME: Competition Name wird gepusht, auch wenn keine Spiel sind
     //FIXME: Land wird als Competition Name gepusht, wenn kein Competition Name vorhanden ist
     const pageData: string[] = await page.evaluate(() => {
+      // Wenn keine Matches, return leeres Array
+      if ($('.grid-option-group').length === 0) return [''];
+
       const results = [];
       //push competition name first
+      const country = $('.breadcrumb-item')
+        .eq(-2)
+        .find('.breadcrumb-title')
+        .text();
+
       const competition = $('.breadcrumb-item')
         .last()
         .find('.breadcrumb-title')
         .text();
-      results.push(competition);
+
+      results.push(`${country} / ${competition}`);
 
       $('.grid-group-x1')
         .find('.grid-event-wrapper')
@@ -36,7 +45,7 @@ const bwinScrapeUrl = async (
         .forEach((item) => {
           results.push(item.outerHTML);
         });
-      console.log(results);
+
       return results;
     });
 
@@ -44,7 +53,9 @@ const bwinScrapeUrl = async (
 
     return pageData;
   } catch (e) {
-    throw e;
+    //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
+    return [''];
+    // throw e;
   }
 };
 
