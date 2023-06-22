@@ -1,4 +1,4 @@
-import tipicoScrapeUrl from '@lib/api/scrapers/tipicoScrapeUrl';
+import tipicoScrapeUrl from '@lib/api/tipico/tipicoScrapeUrl';
 import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
 
 /* Scraping Logik für Tipico */
