@@ -1,10 +1,17 @@
 import { Page } from 'puppeteer';
 import startBrowser from './browser';
 
-const promisifyRequestsList = async (
-  competitionUrlList: { competition: string; url: string }[],
+interface CompetitionUrlObject {
+  competition: string;
+  url: string;
+}
+
+/* Packt alle CompetitionURL in einer Queue, wartet bis die Seiten gescraped werden und
+gibt die Ergebnisse zurück */
+const scrapeAllUrls = async (
+  competitionUrlList: CompetitionUrlObject[],
   scrapeSingleUrl: (
-    competitionUrlObj: { competition: string; url: string },
+    competitionUrlObj: CompetitionUrlObject,
     page: Page
   ) => Promise<string[]>
 ): Promise<string[][]> => {
@@ -14,7 +21,7 @@ const promisifyRequestsList = async (
     if (browser === undefined) throw new Error('Browser is undefined');
 
     const scrapedData: string[][] = [];
-    /* Promises in der Queue und wartet bis alle ausgeführt wurden */
+
     const promises: Promise<void>[] = competitionUrlList.map(
       async (competitionUrlObj) => {
         const page = await browser.newPage();
@@ -42,7 +49,6 @@ const promisifyRequestsList = async (
 
     await Promise.all(promises);
 
-    // Schließt den Browser und gibt Array zurück
     await browser.close();
     return scrapedData;
   } catch (e) {
@@ -50,4 +56,4 @@ const promisifyRequestsList = async (
   }
 };
 
-export default promisifyRequestsList;
+export default scrapeAllUrls;

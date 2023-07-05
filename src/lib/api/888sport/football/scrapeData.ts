@@ -1,10 +1,10 @@
 import _888sportScrapeUrl from '@lib/api/888sport/888sportScrapeUrl';
-import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
+import queueScrapedUrls from '@lib/utils/queueScrapedUrls';
 
 /* Füttert Scraping Funktion mit den Urls, sammelt die Rückgaben und gibt sie in einer Array zürück */
 const scrapeData = async (): Promise<string[][] | undefined> => {
   /* TODO: Weitere Wettbewerbe integrieren */
-  const competitionUrls = [
+  const competitionUrlList = [
     {
       competition: 'ESP / La Liga',
       url: 'https://www.888sport.de/fussball/spanien/la-liga/',
@@ -184,7 +184,7 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
   ];
 
   try {
-    return await promisifyRequestsList(competitionUrls, _888sportScrapeUrl);
+    return await queueScrapedUrls(competitionUrlList, _888sportScrapeUrl);
   } catch (e) {
     throw e;
   }

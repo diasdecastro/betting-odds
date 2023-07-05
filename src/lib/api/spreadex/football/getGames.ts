@@ -1,12 +1,15 @@
-import * as cheerio from 'cheerio';
-import scrapeData from './scrapeData';
+import { load } from 'cheerio';
+import competitionUrlList from './competitionUrlList';
+import spreadexScrapeUrl from '../spreadexScrapeUrl';
+import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
   getNormalizedDateFormat,
   getNormalizedOddsFormat,
 } from '@lib/utils/normalizeDataHelper';
 
-/* Datenstruktur für ein Spiel */
-interface FootballGameModel {
+/* TODO: Typ Definition auslagern */
+/* Datenstruktur für Fussball */
+interface FootballModel {
   competition: {
     country: string;
     name: string;
@@ -24,29 +27,36 @@ interface FootballGameModel {
   }[];
 }
 
-/* Modelliert Array mit HTML-Strings im Format GameModel 
-  und gibt Array mit Elemente im gewünschten Format zurück */
-const getGames = async (): Promise<FootballGameModel[]> => {
-  const games: FootballGameModel[] = [];
+/* Gibt Array mit Einträge des Typens FootballModel zurück */
+const getGames = async (): Promise<FootballModel[]> => {
+  const games: FootballModel[] = [];
 
-  const pageData: string[][] | undefined = await scrapeData();
+  const scrapedData: string[][] | undefined = await scrapeAllUrls(
+    competitionUrlList,
+    spreadexScrapeUrl
+  );
 
   let competitionCountry: string;
   let competitionName: string;
 
-  pageData?.map((competition) => {
-    // link to competition page is the last element
+  scrapedData?.map((competition) => {
+    // Wenn das Element leer ist, spring zum nächsten
+    if (!competition[0]) return;
+
+    // Link zur Wettbewerbsseite in der letzten Stelle
     const link = competition[competition.length - 1] || '';
-    competition.map((competitionElem, index) => {
-      const $ = cheerio.load(competitionElem);
 
-      // first element is always the name of the competition. the rest are games bundled by date
+    competition.map((competitionData, index) => {
+      const $ = load(competitionData);
+
+      /* Das erste Element der Array mit den gescrapten Daten eines einzelnen Wettbewerbs 
+      ist immer der Wettbewerbsname */
       if (index === 0) {
-        //continue to next competition, if has no competition name
-        if (competitionElem === '') return;
+        // Wenn der Wettbewerb kein Name hat, spring zum nächsten
+        if (competitionData === '') return;
 
-        competitionCountry = competitionElem.split(' / ')[0];
-        competitionName = competitionElem.split(' / ')[1];
+        competitionCountry = competitionData.split(' / ')[0];
+        competitionName = competitionData.split(' / ')[1];
 
         games.push({
           competition: {

@@ -1,10 +1,10 @@
 import tipicoScrapeUrl from '@lib/api/tipico/tipicoScrapeUrl';
-import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
+import queueScrapedUrls from '@lib/utils/queueScrapedUrls';
 
 /* Scraping Logik für Tipico */
 export const scrapeData = async (): Promise<string[][]> => {
   /* TODO: Weitere Wettbewerbe hinzufügen */
-  const competitionUrls = [
+  const competitionUrlList = [
     //europe
     {
       competition: 'ENG / Premier League',
@@ -197,7 +197,7 @@ export const scrapeData = async (): Promise<string[][]> => {
   ]; */
 
   try {
-    return await promisifyRequestsList(competitionUrls, tipicoScrapeUrl);
+    return await queueScrapedUrls(competitionUrlList, tipicoScrapeUrl);
   } catch (e) {
     throw e;
   }

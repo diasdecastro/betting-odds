@@ -1,5 +1,5 @@
 import spreadexScrapeUrl from '@lib/api/spreadex/spreadexScrapeUrl';
-import promisifyRequestsList from '@lib/utils/promisifyRequestsList';
+import queueScrapedUrls from '@lib/utils/queueScrapedUrls';
 
 /* Füttert Scraping Funktion mit den Urls, sammelt die Rückgaben und gibt sie in einer Array zürück */
 const scrapeData = async (): Promise<string[][] | undefined> => {
@@ -7,7 +7,7 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
     TODO: Weitere Wettbewerbe integrieren, wenn Wettbewerbe wieder losgehen.
     spreadex blendet nicht-laufenden Wettbewerbe aus. Hoffentlich benutzen sie jedes Jahr die gleiche URLs
     */
-  const competitionUrls = [
+  const competitionUrlList = [
     //europe
     {
       competition: 'ENG / Premier League',
@@ -108,7 +108,7 @@ const scrapeData = async (): Promise<string[][] | undefined> => {
   ];
 
   try {
-    return await promisifyRequestsList(competitionUrls, spreadexScrapeUrl);
+    return await queueScrapedUrls(competitionUrlList, spreadexScrapeUrl);
   } catch (e) {
     throw e;
   }
