@@ -1,14 +1,15 @@
-import * as cheerio from 'cheerio';
-import scrapeData from './scrapeData';
+import { load } from 'cheerio';
+import competitionUrlList from './competitionUrlList';
+import spreadexScrapeUrl from '../spreadexScrapeUrl';
+import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
-  normalizeDateFormat,
-  normalizeCompetitionName,
-  normalizeTeamName,
-  normalizeOddsString,
+  getNormalizedDateFormat,
+  getNormalizedOddsFormat,
 } from '@lib/utils/normalizeDataHelper';
 
-/* Datenstruktur für ein Spiel */
-interface FootballGameModel {
+/* TODO: Typ Definition auslagern */
+/* Datenstruktur für Fussball */
+interface FootballModel {
   competition: {
     country: string;
     name: string;
@@ -26,27 +27,41 @@ interface FootballGameModel {
   }[];
 }
 
-/* Modelliert Array mit HTML-Strings im Format GameModel 
-  und gibt Array mit Elemente im gewünschten Format zurück */
-const getGames = async (): Promise<FootballGameModel[]> => {
-  const games: FootballGameModel[] = [];
+/* Gibt Array mit Einträge des Typens FootballModel zurück */
+const getGames = async (): Promise<FootballModel[]> => {
+  const games: FootballModel[] = [];
 
-  const pageData: string[][] | undefined = await scrapeData();
+  const scrapedData: string[][] | undefined = await scrapeAllUrls(
+    competitionUrlList,
+    spreadexScrapeUrl
+  );
 
-  pageData?.map((competition) => {
-    // link to competition page is the last element
+  let competitionCountry: string;
+  let competitionName: string;
+
+  scrapedData?.map((competition) => {
+    // Wenn das Element leer ist, spring zum nächsten
+    if (!competition[0]) return;
+
+    // Link zur Wettbewerbsseite in der letzten Stelle
     const link = competition[competition.length - 1] || '';
-    competition.map((competitionElem, index) => {
-      const $ = cheerio.load(competitionElem);
 
-      // first element is always the name of the competition. the rest are games bundled by date
+    competition.map((competitionData, index) => {
+      const $ = load(competitionData);
+
+      /* Das erste Element der Array mit den gescrapten Daten eines einzelnen Wettbewerbs 
+      ist immer der Wettbewerbsname */
       if (index === 0) {
-        //continue to next competition, if has no competition name
-        if (competitionElem === '') return;
+        // Wenn der Wettbewerb kein Name hat, spring zum nächsten
+        if (competitionData === '') return;
+
+        competitionCountry = competitionData.split(' / ')[0];
+        competitionName = competitionData.split(' / ')[1];
+
         games.push({
           competition: {
-            country: competitionElem.split(' / ')[0],
-            name: competitionElem.split(' / ')[1],
+            country: competitionCountry,
+            name: competitionName,
           },
           games: [],
         });
@@ -62,18 +77,18 @@ const getGames = async (): Promise<FootballGameModel[]> => {
           games
             ?.find(
               (obj) =>
-                obj.competition.country === competition[0].split(' / ')[0] &&
-                obj.competition.name === competition[0].split(' / ')[1]
+                obj.competition.country === competitionCountry &&
+                obj.competition.name === competitionName
             )
             ?.games.push({
               link: link,
-              date: normalizeDateFormat(date, 'spreadex'),
+              date: getNormalizedDateFormat(date, 'spreadex'),
               team1: team1,
               team2: team2,
               odds: {
-                team1Win: normalizeOddsString(team1Win),
-                draw: normalizeOddsString(draw),
-                team2Win: normalizeOddsString(team2Win),
+                team1Win: getNormalizedOddsFormat(team1Win),
+                draw: getNormalizedOddsFormat(draw),
+                team2Win: getNormalizedOddsFormat(team2Win),
               },
             });
         });

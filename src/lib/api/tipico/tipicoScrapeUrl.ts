@@ -1,39 +1,33 @@
-import { Browser } from 'puppeteer';
+import { Page } from 'puppeteer';
 
 const tipicoScrapeUrl = async (
-  url: string,
-  browser: Browser
+  competitionUrlObj: { competition: string; url: string },
+  page: Page
 ): Promise<string[]> => {
   try {
-    const page = await browser.newPage();
-    //Macht, dass die Seite richtig geladen wird im headless mode
-    await page.setUserAgent(
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
+    //Wartet auf Spiele oder Container für "Keine Spiele"
+    await page.waitForFunction(
+      () =>
+        document.querySelectorAll(
+          '.SportsCompetitionsEvents-styles-competitions-events-block, .NoEventsCta-styles-button'
+        ).length,
+      { timeout: 0 }
     );
 
-    await page.goto(url, { timeout: 0 });
-    await page.addScriptTag({
-      url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
-    });
-
-    await page.waitForSelector(
-      '.SportsCompetitionsEvents-styles-competitions-events-block, .NoEventsCta-styles-button'
-    );
+    /* Klickt Cookie Banner weg */
+    /* const hasCookieBanner = (await page.$('#_evidon-accept-button')) !== null;
+    if (hasCookieBanner) await page.click('#_evidon-accept-button'); */
 
     // return empty, if no events
     const pageHasNoGames =
       (await page.$('.NoEventsCta-styles-button')) !== null;
     if (pageHasNoGames) {
-      await page.close();
       return [''];
     }
 
     // Speichert Elemente von der Seite zurückgegeben werden in einer Array
     const pageData: string[] = await page.evaluate(() => {
       const results: string[] = [];
-
-      //Competition name
-      results.push($('.CompetitionTitle-styles-title').text());
 
       //Matches in competition
       $('.SportsCompetitionsEvents-styles-competitions-events-block')
@@ -45,13 +39,10 @@ const tipicoScrapeUrl = async (
       return results;
     });
 
-    await page.close();
-
-    return pageData;
+    return [competitionUrlObj.competition, ...pageData];
   } catch (e) {
     //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];
-    //throw e;
   }
 };
 

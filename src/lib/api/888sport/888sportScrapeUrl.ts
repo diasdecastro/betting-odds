@@ -1,48 +1,32 @@
-import { Browser } from 'puppeteer';
+import { Page } from 'puppeteer';
 
 /* Scraping Logik für Betway */
 const _888sportScrapeUrl = async (
-  url: string,
-  browser: Browser
+  competitionUrlObj: { competition: string; url: string },
+  page: Page
 ): Promise<string[]> => {
   try {
-    const page = await browser.newPage();
-    //Macht, dass die Seite richtig geladen wird im headless mode
-    await page.setUserAgent(
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
+    //Wartet auf Spiele oder Container für "Keine Spiele"
+    await page.waitForFunction(
+      () =>
+        document.querySelectorAll(
+          '.eventList__content-section, .bb-message-button-card'
+        ).length,
+      { timeout: 0 }
     );
-
-    await page.goto(url, { timeout: 0 });
-    await page.addScriptTag({
-      url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
-    });
-
     //Warte bis Spiele geladen sind
-    await page.waitForSelector(
+    /* await page.waitForSelector(
       '.eventList__content-section, .bb-message-button-card'
-    );
+    ); */
 
     //if no games, return empty
     const pageHasNoGames = (await page.$('.bb-message-button-card')) !== null;
     if (pageHasNoGames) {
-      page.close();
       return [''];
     }
 
     const pageData: string[] = await page.evaluate(() => {
       const results: string[] = [];
-      //Competition Name
-      const competition = $('.bb-breadcrumbs__lastVisible')
-        .find('.bb-breadcrumbs__levelTwo__text')
-        .text();
-
-      //Original string: Deutschland Bundesliga. String inside push function: Deutschland / Bundesliga
-      results.push(
-        `${competition.substring(
-          0,
-          competition.indexOf(' ')
-        )} / ${competition.substring(competition.indexOf(' ') + 1)}`
-      );
 
       //Matches in competition
       $('.tournamentEventsList')
@@ -54,13 +38,10 @@ const _888sportScrapeUrl = async (
       return results;
     });
 
-    page.close();
-
-    return pageData;
+    return [competitionUrlObj.competition, ...pageData];
   } catch (e) {
     //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];
-    throw e;
   }
 };
 

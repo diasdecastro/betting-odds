@@ -1,20 +1,13 @@
-import { Browser } from 'puppeteer';
+import { Page } from 'puppeteer';
 
 /* Scraping Logik für Betway */
 const bwinScrapeUrl = async (
-  url: string,
-  browser: Browser
+  competitionUrlObj: { competition: string; url: string },
+  page: Page
 ): Promise<string[]> => {
   try {
-    const page = await browser.newPage();
-    //Macht, dass die Seite richtig geladen wird im headless mode
-    await page.setUserAgent(
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
-    );
-
-    await page.goto(url, { timeout: 0 });
     await page.bringToFront();
-    await page.waitForSelector('.widget-slot');
+    await page.waitForSelector('.widget-slot', { timeout: 0 });
     await page.addScriptTag({
       url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
     });
@@ -25,19 +18,7 @@ const bwinScrapeUrl = async (
       // Wenn keine Matches, return leeres Array
       if ($('.grid-option-group').length === 0) return [''];
 
-      const results = [];
-      //push competition name first
-      const country = $('.breadcrumb-item')
-        .eq(-2)
-        .find('.breadcrumb-title')
-        .text();
-
-      const competition = $('.breadcrumb-item')
-        .last()
-        .find('.breadcrumb-title')
-        .text();
-
-      results.push(`${country} / ${competition}`);
+      const results: string[] = [];
 
       $('.grid-group-x1')
         .find('.grid-event-wrapper')
@@ -49,9 +30,7 @@ const bwinScrapeUrl = async (
       return results;
     });
 
-    await page.close();
-
-    return pageData;
+    return [competitionUrlObj.competition, ...pageData];
   } catch (e) {
     //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];
