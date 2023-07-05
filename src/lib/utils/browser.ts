@@ -5,7 +5,7 @@ const startBrowser = async (): Promise<Browser | undefined> => {
   try {
     console.log('Opening Browser...');
     browser = await launch({
-      headless: true,
+      headless: false,
       args: ['--diable-setuid-sandbox'],
       ignoreHTTPSErrors: true,
     });

@@ -1,0 +1,76 @@
+Leagues:
+"ARG / Primera División" V
+"ARG / Primera Nacional" V
+"ARG / Primera B" V
+"ARG / Primera C" V
+"ARG / Primera D" V
+"AUS / A-League Men" V
+"AUS / NPL" V (Eingeteilt in 8 Wettbewerbe)
+"AUS / Queensland Premier League 1"
+"BRA / Série A" V
+"BRA / Série B" V
+"BRA / Série C" V
+"BRA / Série D" V
+"CAN / Premier League" V
+"CHL / Primera División" V
+"CHL / Primera B" V
+"CHN / Super League" V
+"COL / Categoría Primera A" V
+"COL / Categoría Primera B" V
+"ECU / Serie A" V
+"ECU / Serie B" V
+"ECU / Segunda Categoría" V
+"ENG / Premier League" V
+"ENG / EFL Championship" V
+"ENG / EFL League One" V
+"ENG / EFL League Two" V
+"ESP / La Liga" V
+"ESP / La Liga 2" V
+"ESP / Primera Federación" V
+"FIN / Veikkausliiga" V
+"FIN / Ykkönen" V
+"FRA / Ligue 1" V
+"FRA / Ligue 2" V
+"FRA / Primera Federación" V (League 3 ab 2024-25)
+"GER / Bundesliga" V
+"GER / 2. Bundesliga" V
+"GER / 3. Liga" V
+"INT / Champions League" V
+"IRL / Premier Division" V
+"IRL / First Division" V
+"ISL / Besta deild karla" V
+"ISL / 1. deild karla" V
+"ISL / 2. deild karla" V
+"ITA / Serie A" V
+"ITA / Serie B" V
+"ITA / Serie C" V
+"JPN / J1 League" V
+"JPN / J2 League" V
+"JPN / J3 League" V
+"KOR / K-League 1" V
+"KOR / K-League 2" V
+"KOR / K3 League" V
+"NOR / Eliteserien" V
+"NOR / First Division" V
+"PER / Liga 1" V
+"PER / Liga 2" V
+"SWE / Allsvenskan" V
+"SWE / Damallsvenskan" V
+"SWE / Ettan" V
+"SWE / Division 2" V
+"TUR / Süper Lig" V
+"TUR / 1. Lig" V
+"TUR / 2. Lig" V
+"URY / Primera División" V
+"USA / Major League Soccer" V
+"USA / USL Championship" V
+"USA / USL League One" V
+"USA / USL League Two" V
+
+Cups:
+"BRA / Copa do Brasil" V
+"ENG / EFL Cup" V
+"ISL / Womens Super Cup" V
+"JPN / Emperors Cup" V
+"JPN / J. League Cup" V
+"NZL / Chatham Cup" V

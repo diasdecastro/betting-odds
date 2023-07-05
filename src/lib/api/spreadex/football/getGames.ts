@@ -1,10 +1,8 @@
 import * as cheerio from 'cheerio';
 import scrapeData from './scrapeData';
 import {
-  normalizeDateFormat,
-  normalizeCompetitionName,
-  normalizeTeamName,
-  normalizeOddsString,
+  getNormalizedDateFormat,
+  getNormalizedOddsFormat,
 } from '@lib/utils/normalizeDataHelper';
 
 /* Datenstruktur für ein Spiel */
@@ -33,6 +31,9 @@ const getGames = async (): Promise<FootballGameModel[]> => {
 
   const pageData: string[][] | undefined = await scrapeData();
 
+  let competitionCountry: string;
+  let competitionName: string;
+
   pageData?.map((competition) => {
     // link to competition page is the last element
     const link = competition[competition.length - 1] || '';
@@ -43,10 +44,14 @@ const getGames = async (): Promise<FootballGameModel[]> => {
       if (index === 0) {
         //continue to next competition, if has no competition name
         if (competitionElem === '') return;
+
+        competitionCountry = competitionElem.split(' / ')[0];
+        competitionName = competitionElem.split(' / ')[1];
+
         games.push({
           competition: {
-            country: competitionElem.split(' / ')[0],
-            name: competitionElem.split(' / ')[1],
+            country: competitionCountry,
+            name: competitionName,
           },
           games: [],
         });
@@ -62,18 +67,18 @@ const getGames = async (): Promise<FootballGameModel[]> => {
           games
             ?.find(
               (obj) =>
-                obj.competition.country === competition[0].split(' / ')[0] &&
-                obj.competition.name === competition[0].split(' / ')[1]
+                obj.competition.country === competitionCountry &&
+                obj.competition.name === competitionName
             )
             ?.games.push({
               link: link,
-              date: normalizeDateFormat(date, 'spreadex'),
+              date: getNormalizedDateFormat(date, 'spreadex'),
               team1: team1,
               team2: team2,
               odds: {
-                team1Win: normalizeOddsString(team1Win),
-                draw: normalizeOddsString(draw),
-                team2Win: normalizeOddsString(team2Win),
+                team1Win: getNormalizedOddsFormat(team1Win),
+                draw: getNormalizedOddsFormat(draw),
+                team2Win: getNormalizedOddsFormat(team2Win),
               },
             });
         });

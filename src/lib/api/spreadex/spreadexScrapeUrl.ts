@@ -1,19 +1,12 @@
-import { Browser } from 'puppeteer';
+import { Browser, Page } from 'puppeteer';
 
 /* Scraping Logik für spreadex */
 /* TODO: Saubermachen */
 const spreadexScrapeUrl = async (
-  url: string,
-  browser: Browser
+  competitionUrlObj: { competition: string; url: string },
+  page: Page
 ): Promise<string[]> => {
   try {
-    const page = await browser.newPage();
-    //Macht, dass die Seite richtig geladen wird im headless mode
-    await page.setUserAgent(
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
-    );
-
-    await page.goto(url, { timeout: 0 });
     await page.addScriptTag({
       url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
     });
@@ -26,8 +19,6 @@ const spreadexScrapeUrl = async (
       if ($('#matches').length === 0) return [''];
 
       const results: string[] = [];
-      //Push Wettbewerbsname
-      results.push($('.header__page-title').text().replace('-', '/'));
 
       //Push Spiele
       $('#matches')
@@ -41,11 +32,9 @@ const spreadexScrapeUrl = async (
     });
 
     //push competition url as last element for link. link for game is inaccessible.
-    pageData.push(url);
+    pageData.push(competitionUrlObj.url);
 
-    page.close();
-
-    return pageData;
+    return [competitionUrlObj.competition, ...pageData];
   } catch (e) {
     //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];

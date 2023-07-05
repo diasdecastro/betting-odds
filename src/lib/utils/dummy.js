@@ -3016,3 +3016,937 @@ const allData = [
   ...spreadexDummyData,
   ...bwinDummyData,
 ];
+
+const standardizedCompleteNames = {
+  INT: { de: [], en: [] },
+  ARG: {
+    de: [
+      'Argentinische Primera División',
+      'Primera B Nacional',
+      'Primera B Metropolitana',
+      'Copa Argentina',
+    ],
+    en: [
+      'Argentine Primera División',
+      'Primera Nacional',
+      'Primera B Nacional',
+      'Primera B Metropolitana',
+      'Copa Argentina',
+    ],
+  },
+  AUS: {
+    de: ['A-Liga', 'National Premier Leagues', 'NPL Staatsliga', 'FFA-Pokal'],
+    en: ['A-League', 'National Premier Leagues', 'NPL State League', 'FFA Cup'],
+  },
+  BRA: {
+    de: [],
+    en: [
+      'Campeonato Brasileiro Série A',
+      'Campeonato Brasileiro Série B',
+      'Campeonato Brasileiro Série C',
+      'Copa do Brasil',
+    ],
+  },
+  CHL: {
+    de: [
+      'Chilenische Primera División',
+      'Primera B de Chile',
+      'Segunda División Profesional de Chile',
+      'Copa Chile',
+    ],
+    en: [
+      'Chilean Primera División',
+      'Primera B de Chile',
+      'Segunda División Profesional de Chile',
+      'Copa Chile',
+    ],
+  },
+  COL: {
+    de: [],
+    en: [
+      'Categoría Primera A',
+      'Categoría Primera B',
+      'Categoría Primera C',
+      'Copa Colombia',
+    ],
+  },
+  DNK: {
+    de: [
+      'Dänische Superliga',
+      'Dänische 1. Division',
+      'Dänische 2. Division',
+      'Dänischer Pokal',
+    ],
+    en: [
+      'Danish Superliga',
+      'Danish 1st Division',
+      'Danish 2nd Division',
+      'Danish Cup',
+    ],
+  },
+  ECU: {
+    de: [
+      'Ecuadorianische Serie A',
+      'Ecuadorianische Serie B',
+      'Segunda Categoría',
+      'Copa Ecuador',
+    ],
+    en: [
+      'Ecuadorian Serie A',
+      'Ecuadorian Serie B',
+      'Segunda Categoría',
+      'Copa Ecuador',
+    ],
+  },
+  EGY: {
+    de: [
+      'Egyptian Premier League',
+      'Egyptian Second Division',
+      'Egyptian Third Division',
+      'Egypt Cup',
+    ],
+    en: [
+      'Ägyptische Premier League',
+      'Ägyptische Zweite Division',
+      'Ägyptische Dritte Division',
+      'Ägypten-Pokal',
+    ],
+  },
+  ENG: {
+    de: [],
+    en: [
+      'Premier League',
+      'The Championship',
+      'League One',
+      'League Two',
+      'FA Cup',
+      'EFL Cup',
+    ],
+  },
+  FIN: {
+    de: ['Finnischer Pokal'],
+    en: ['Veikkausliiga', 'Ykkönen', 'Kakkonen', 'Finnish Cup'],
+  },
+  FRA: {
+    de: [],
+    en: [
+      'Ligue 1',
+      'Ligue 2',
+      'Championnat National',
+      'Coupe de France',
+      'Coupe de la Ligue',
+    ],
+  },
+  DEU: {
+    de: [],
+    en: ['Bundesliga', '2. Bundesliga', '3. Liga', 'DFB-Pokal'],
+  },
+  ISL: {
+    de: ['Isländischer Pokal'],
+    en: ['Úrvalsdeild', '1. deild karla', '2. deild karla', 'Icelandic Cup'],
+  },
+  IRL: {
+    de: [
+      'Irische Premier Division',
+      'Irische Erste Division',
+      'League of Ireland U19 Division',
+      'FAI Cup',
+    ],
+    en: ['Premier Division', 'First Division', 'A Championship', 'FAI Cup'],
+  },
+  ITA: {
+    de: [],
+    en: [
+      'Serie A',
+      'Serie B',
+      'Serie C',
+      'Coppa Italia',
+      'Supercoppa Italiana',
+    ],
+  },
+  JPN: {
+    de: ['J1 Liga', 'J2 Liga', 'J3 Liga'],
+    en: [
+      'J1 League',
+      'J2 League',
+      'J3 League',
+      "Emperor's Cup",
+      'J. League Cup',
+    ],
+  },
+  CAN: {
+    de: ['Kanadische Premier League', 'Kanadische Meisterschaft'],
+    en: ['Canadian Premier League', 'Canadian Championship'],
+  },
+  KAZ: {
+    de: [
+      'Kasachische Premier League',
+      'Kasachische Erste Division',
+      'Kasachischer Pokal',
+    ],
+    en: [
+      'Kazakhstan Premier League',
+      'Kazakhstan First Division',
+      'Kazakhstan Cup',
+    ],
+  },
+  NZL: {
+    de: [
+      'Neuseeland Fußballmeisterschaft',
+      'Northern League',
+      'Central League',
+      'Southern League',
+      'Chatham Cup',
+    ],
+    en: [
+      'New Zealand Football Championship',
+      'Northern League',
+      'Central League',
+      'Southern League',
+      'Chatham Cup',
+    ],
+  },
+  NOR: {
+    de: [
+      'Norwegische Erste Division',
+      'Zweite Division',
+      'Norwegischer Fußballpokal',
+    ],
+    en: [
+      'Eliteserien',
+      'Norwegian First Division',
+      'Second Division',
+      'Norwegian Football Cup',
+    ],
+  },
+  PRY: {
+    de: [
+      'Paraguayische Primera División',
+      'División Intermedia',
+      'Copa Paraguay',
+    ],
+    en: ['Paraguayan Primera División', 'División Intermedia', 'Copa Paraguay'],
+  },
+  PER: {
+    de: [
+      'Peruanische Primera División',
+      'Peruanische Segunda División',
+      'Copa Bicentenario',
+      'Copa Perú',
+    ],
+    en: [
+      'Peruvian Primera División',
+      'Peruvian Segunda División',
+      'Copa Bicentenario',
+      'Copa Perú',
+    ],
+  },
+  SCO: {
+    de: [
+      'Schottische Premiership',
+      'Schottische Championship',
+      'Scottish League One',
+      'Schottischer Pokal',
+    ],
+    en: [
+      'Scottish Premiership',
+      'Scottish Championship',
+      'Scottish League One',
+      'Scottish Cup',
+    ],
+  },
+  KOR: {
+    de: ['Koreanischer FA-Pokal'],
+    en: ['K League 1', 'K League 2', 'National League', 'Korean FA Cup'],
+  },
+  ESP: {
+    de: [],
+    en: [
+      'La Liga',
+      'Segunda División',
+      'Segunda División B',
+      'Copa del Rey',
+      'Supercopa de España',
+    ],
+  },
+  SWE: {
+    de: [],
+    en: [
+      'Allsvenskan',
+      'Superettan',
+      'Division 1',
+      'Svenska Cupen',
+      'Supercupen',
+    ],
+  },
+  USA: {
+    de: ['USL-Meisterschaft', 'USL Liga Eins'],
+    en: [
+      'Major League Soccer',
+      'USL Championship',
+      'USL League One',
+      'U.S. Open Cup',
+      'MLS Cup',
+    ],
+  },
+  URY: {
+    de: [
+      'Uruguayische Primera División',
+      'Uruguayische Segunda División',
+      'Intermedia',
+      'Copa Uruguay',
+    ],
+    en: [
+      'Uruguayan Primera División',
+      'Uruguayan Segunda División',
+      'Intermedia',
+      'Copa Uruguay',
+    ],
+  },
+};
+
+/* ######################################################################## */
+
+const competitionUrlsSpreadex = [
+  //europe
+  {
+    competition: 'ENG / Premier League',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/47/fo/c',
+  },
+  {
+    competition: 'ESP / La Liga',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9736/fo/c66',
+  },
+  {
+    competition: 'ESP / La Liga 2',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9740/fo/c66',
+  },
+  {
+    competition: 'FIN / Ykkönen',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15836/fo/c66',
+  },
+  {
+    competition: 'GER / Bundesliga',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9746/fo/c66',
+  },
+  {
+    competition: 'GER / 2. Bundesliga',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9747/fo/c66',
+  },
+  {
+    competition: 'ISL / Besta deild karla', // First Division?
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15815/fo/c66',
+  },
+  {
+    competition: 'ITA / Serie A',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9737/fo/c66',
+  },
+  {
+    competition: 'ITA / Serie B',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9739/fo/c66',
+  },
+  {
+    competition: 'SWE, Allsvenskan', // First Division (Men)?
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15941/fo/c66',
+  },
+  {
+    competition: 'SWE, Damallsvenskan', // First Division (Women)?
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/16085/fo/c66',
+  },
+  {
+    competition: 'TUR / Süper Lig',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9953/fo/c66',
+  },
+  {
+    competition: 'TUR / 2. Lig',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/16039/fo/c66',
+  },
+  {
+    competition: 'INT / Champions League',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/79/fo/c66',
+  },
+
+  //asia
+  {
+    competition: 'JPN / J1 League',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/14737/fo/c66',
+  },
+  {
+    competition: 'JPN / J2 League',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15795/fo/c66',
+  },
+
+  //america
+  {
+    competition: 'ARG / Primera División',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9751/fo/c66',
+  },
+  {
+    competition: 'ARG / Primera Nacional',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15794/fo/c66',
+  },
+  {
+    competition: 'BRA / Série A',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/9750/fo/c66',
+  },
+  {
+    competition: 'CHL / Primera B',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15852/fo/c66',
+  },
+  {
+    competition: 'PER / Segunda Division',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15820/fo/c66',
+  },
+  {
+    competition: 'USA / Major Soccer League',
+    url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/5660/fo/c66',
+  },
+
+  //africa
+
+  //oceania
+];
+
+const competitionUrls888sport = [
+  {
+    competition: 'ESP / La Liga',
+    url: 'https://www.888sport.de/fussball/spanien/la-liga/',
+  },
+  {
+    competition: 'ESP / La Liga 2',
+    url: 'https://www.888sport.de/fu%C3%9Fball/spanien/spain-segunda-division-t-319629/',
+  },
+  {
+    competition: 'FIN / Ykkönen',
+    url: 'https://www.888sport.de/fu%C3%9Fball/finnland/finland-ykkonen-t-328706/',
+  },
+  {
+    competition: 'FRA / Ligue 1',
+    url: 'https://www.888sport.de/football/france/ligue-1-20232024-t-481457/',
+  },
+  {
+    competition: 'GER / Bundesliga',
+    url: 'https://www.888sport.de/football/germany/bundesliga-20232024-t-481461/',
+  },
+  {
+    competition: 'IRL / Premier Division',
+    url: 'https://www.888sport.de/football/ireland/ireland-premier-division-t-321690/',
+  },
+  {
+    competition: 'ISL / Besta deild karla',
+    url: 'https://www.888sport.de/fu%C3%9Fball/island/island-first-division-t-328311/',
+  },
+  {
+    competition: 'ISL / 1. deild karla',
+    url: 'https://www.888sport.de/fu%C3%9Fball/island/island-second-division-t-328219/',
+  },
+  {
+    competition: 'ISL / Womens Super Cup',
+    url: 'https://www.888sport.de/fu%C3%9Fball/island/island-frauen-pokal-t-327743/',
+  },
+  {
+    competition: 'ISL / 2. deild karla',
+    url: 'https://www.888sport.de/fu%C3%9Fball/island/island-third-division-t-328408/',
+  },
+  {
+    competition: 'ITA / Serie A',
+    url: 'https://www.888sport.de/football/italy/serie-a-20232024-t-481459/',
+  },
+  {
+    competition: 'ITA / Serie B',
+    url: 'https://www.888sport.de/fu%C3%9Fball/italien/italien-serie-b-t-319569/',
+  },
+  {
+    competition: 'SWE / Allsvenskan',
+    url: 'https://www.888sport.de/football/sweden/allsvenskan/',
+  },
+  {
+    competition: 'SWE / Damallsvenskan',
+    url: 'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-damallsvenskan-t-328722/',
+  },
+  {
+    competition: 'SWE / Ettan', //Norra
+    url: 'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-1-norra-t-328028/',
+  },
+  {
+    competition: 'SWE / Ettan', //Södra
+    url: 'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-1-s%C3%B6dra-t-328004/',
+  },
+  {
+    competition: 'SWE / Division 2', //Norra Götaland
+    url: 'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-2-norra-g%C3%B6taland-t-330931/',
+  },
+  {
+    competition: 'SWE / Division 2', //Södra Götaland
+    url: 'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-2-s%C3%B6dra-g%C3%B6taland-t-369346/',
+  },
+  {
+    competition: 'SWE / Division 2', //Västra Götaland
+    url: 'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-2-v%C3%A4stra-g%C3%B6taland-t-326278/',
+  },
+  {
+    competition: 'SWE / Division 2', //Norra Svealand
+    url: 'https://www.888sport.de/fu%C3%9Fball/schweden/schweden-division-2-norra-svealand-t-328016/',
+  },
+  {
+    competition: 'TUR / Süper Lig',
+    url: 'https://www.888sport.de/fu%C3%9Fball/t%C3%BCrkei/t%C3%BCrkei-s%C3%BCper-lig-t-320219/',
+  },
+  {
+    competition: 'TUR / 1. Lig',
+    url: 'https://www.888sport.de/fu%C3%9Fball/t%C3%BCrkei/t%C3%BCrkei-1-lig-t-320221/',
+  },
+  {
+    competition: 'JPN / J2 League',
+    url: 'https://www.888sport.de/fu%C3%9Fball/japan/japan-j-league-2-t-328711/',
+  },
+  {
+    competition: 'JPN / J3 League',
+    url: 'https://www.888sport.de/fu%C3%9Fball/japan/japan-j-league-3-t-328834/',
+  },
+  {
+    competition: 'JPN / Emperors Cup',
+    url: 'https://www.888sport.de/fu%C3%9Fball/japan/japan-emperors-cup-t-333161/',
+  },
+  {
+    competition: 'ARG / Primera Nacional',
+    url: 'https://www.888sport.de/fu%C3%9Fball/argentinien/argentina-primera-nacional-t-320380/',
+  },
+  {
+    competition: 'ARG / Primera División',
+    url: 'https://www.888sport.de/fu%C3%9Fball/argentinien/argentina-superliga-t-153362/',
+  },
+  {
+    competition: 'BRA / Série A',
+    url: 'https://www.888sport.de/football/brazil/serie-a/',
+  },
+  {
+    competition: 'BRA / Série B',
+    url: 'https://www.888sport.de/football/brazil/serie-a/',
+  },
+  {
+    competition: 'BRA / Série C',
+    url: 'https://www.888sport.de/fu%C3%9Fball/brasilien/brasilien-serie-c-t-330341/',
+  },
+  {
+    competition: 'CHL / Primera División',
+    url: 'https://www.888sport.de/fu%C3%9Fball/chile/chile-primera-division-t-320184/',
+  },
+  {
+    competition: 'CHL / Primera B',
+    url: 'https://www.888sport.de/fu%C3%9Fball/chile/chile-primera-division-b-t-323275/',
+  },
+  {
+    competition: 'COL / Categoría Primera A',
+    url: 'https://www.888sport.de/fu%C3%9Fball/kolumbien/colombia-categoria-primera-a-t-320176/',
+  },
+  {
+    competition: 'ECU / Serie A',
+    url: 'https://www.888sport.de/fu%C3%9Fball/ecuador/ecuador-primera-division-t-321618/',
+  },
+  {
+    competition: 'ECU / Serie B',
+    url: 'https://www.888sport.de/fu%C3%9Fball/ecuador/ecuador-primera-b-t-323492/',
+  },
+  {
+    competition: 'PER / Liga 2',
+    url: 'https://www.888sport.de/fu%C3%9Fball/peru/peru-segunda-division-t-341350/',
+  },
+  {
+    competition: 'USA / Major League Soccer',
+    url: 'https://www.888sport.de/fu%C3%9Fball/vereinigte-staaten-von-amerika/us-major-league-soccer-t-323521/',
+  },
+  {
+    competition: 'USA / USL League Two',
+    url: 'https://www.888sport.de/fu%C3%9Fball/vereinigte-staaten-von-amerika/us-usl-league-two-t-365584/',
+  },
+  {
+    competition: 'USA / USL Championship',
+    url: 'https://www.888sport.de/fu%C3%9Fball/vereinigte-staaten-von-amerika/us-usl-championship-t-329473/',
+  },
+  {
+    competition: 'URY / Primera División',
+    url: 'https://www.888sport.de/fu%C3%9Fball/uruguay/uruguay-primera-division-t-322363/',
+  },
+  {
+    competition: 'AUS / Queensland Premier League 1',
+    url: 'https://www.888sport.de/fu%C3%9Fball/australien/australien-football-queensland-premier-league-t-322653/',
+  },
+  {
+    competition: 'AUS / NPL, QUEENSLAND',
+    url: 'https://www.888sport.de/fu%C3%9Fball/australien/australien-national-premier-league-queensland-t-320398/',
+  },
+  {
+    competition: 'AUS / NPL, CAPITAL',
+    url: 'https://www.888sport.de/fu%C3%9Fball/australien/australien-national-premier-league-capital-t-330244/',
+  },
+  {
+    competition: 'NZL / Chatham Cup',
+    url: 'https://www.888sport.de/fu%C3%9Fball/neuseeland/neuseeland-chatham-cup-t-366174/',
+  },
+];
+
+const competitionUrlsBwin = [
+  //europe
+  {
+    competition: 'ENG / Premier League',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/england-14/premier-league-102841',
+  },
+  {
+    competition: 'ENG / League One',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/england-14/league-one-101551',
+  },
+  {
+    competition: 'ENG / League Two',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/england-14/league-two-101550',
+  },
+  {
+    competition: 'ENG / EFL Cup',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/england-14/championship-102839',
+  },
+  {
+    competition: 'ESP / La Liga',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/spanien-28/laliga-102829',
+  },
+  {
+    competition: 'ESP / La Liga 2',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/spanien-28/laliga-2-102830',
+  },
+  {
+    competition: 'FIN / Ykkönen',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/finnland-15/ykkonen-102176',
+  },
+  {
+    competition: 'FRA / Ligue 1',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/frankreich-16/ligue-1-102843',
+  },
+  {
+    competition: 'FRA / Ligue 2',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/frankreich-16/ligue-2-102376',
+  },
+  {
+    competition: 'GER / Bundesliga',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/deutschland-17/bundesliga-102842',
+  },
+  {
+    competition: 'GER / 2. Bundesliga',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/deutschland-17/2-bundesliga-102845',
+  },
+  {
+    competition: 'GER / 3. Liga',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/deutschland-17/3-liga-102377',
+  },
+  {
+    competition: 'IRL / Premier Division',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/irland-23/premier-division-102208',
+  },
+  {
+    competition: 'ISL / 1. deild karla',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/island-49/1-deild-102194',
+  },
+  {
+    competition: 'ITA / Serie A',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/italien-20/serie-a-102846',
+  },
+  {
+    competition: 'ITA / Serie B',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/italien-20/serie-b-102848',
+  },
+  {
+    competition: 'NOR / Eliteserien',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/norwegen-21/eliteserien-102275',
+  },
+  {
+    competition: 'SWE / Allsvenskan',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/schweden-29/allsvenskan-102831',
+  },
+  {
+    competition: 'SWE / Ettan, (Norra)',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/schweden-29/1-division-norra-102217',
+  },
+  {
+    competition: 'SWE / Damallsvenskan',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/schweden-29/damallsvenskan-102219',
+  },
+  {
+    competition: 'TUR / Süper Lig',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/t%C3%BCrkei-31/s%C3%BCper-lig-102832',
+  },
+  {
+    competition: 'TUR / 1. Lig',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/t%C3%BCrkei-31/1-lig-102226',
+  },
+  {
+    competition: 'TUR / 2. Lig',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/t%C3%BCrkei-31/2-lig-102893',
+  },
+
+  //asia
+  {
+    competition: 'JPN / J. League Cup',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/japan-52/j-league-cup-102671',
+  },
+  {
+    competition: 'JPN / J2 League',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/japan-52/j2-league-101400',
+  },
+  {
+    competition: 'JPN / Emperors Cup',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/japan-52/emperor-cup-102812',
+  },
+
+  //america
+  {
+    competition: 'ARG / Primera División',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/argentinien-38/liga-profesional-de-futbol-102540',
+  },
+  {
+    competition: 'ARG / Primera Nacional',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/argentinien-38/primera-nacional-102234',
+  },
+  {
+    competition: 'ARG / Primera B Metropolitana',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/argentinien-38/primera-b-metropolitana-102117',
+  },
+  {
+    competition: 'BRA / Série A',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/brasilien-33/brasileiro-serie-a-102838',
+  },
+  {
+    competition: 'BRA / Série B',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/brasilien-33/brasileiro-serie-b-102361',
+  },
+  {
+    competition: 'BRA / Copa do Brasil',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/brasilien-33/copa-do-brasil-102723',
+  },
+  {
+    competition: 'CAN / Premier League',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/kanada-94/premier-league-100012',
+  },
+  {
+    competition: 'CHL / Primera B',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/chile-56/primera-b-102157',
+  },
+  {
+    competition: 'COL / Categoría Primera A',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/kolumbien-45/primera-a-apertura-102161',
+  },
+  {
+    competition: 'ECU / Serie A',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/ecuador-110/ligapro-primera-a-102171',
+  },
+  {
+    competition: 'PER / Segunda División',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/peru-59/segunda-division-102363',
+  },
+  {
+    competition: 'URY / Primera División',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/uruguay-47/primera-division-102231',
+  },
+  {
+    competition: 'USA / Major League Soccer',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/nordamerika-9/major-league-soccer-102849',
+  },
+  //africa
+
+  //oceania
+];
+
+const competitionUrlsTipico = [
+  //europe
+  {
+    competition: 'ENG / Premier League',
+    url: 'https://sports.tipico.de/de/alle/1101/1301',
+  },
+  {
+    competition: 'FIN / Veikkausliiga',
+    url: 'https://sports.tipico.de/de/alle/1101/31301',
+  },
+  {
+    competition: 'FIN / Ykkönen',
+    url: 'https://sports.tipico.de/de/alle/1101/527301',
+  },
+  {
+    competition: 'INT / Champions League',
+    url: 'https://sports.tipico.de/de/alle/1101/742110',
+  },
+  {
+    competition: 'IRL / Premier Division',
+    url: 'https://sports.tipico.de/de/alle/1101/79301',
+  },
+  {
+    competition: 'IRL / First Division',
+    url: 'https://sports.tipico.de/de/alle/1101/718301',
+  },
+  {
+    competition: 'NOR / Eliteserien',
+    url: 'https://sports.tipico.de/de/alle/1101/5301',
+  },
+  {
+    competition: 'NOR / 1. Division',
+    url: 'https://sports.tipico.de/de/alle/1101/6301',
+  },
+
+  //asia
+  {
+    competition: 'CHN / Super League',
+    url: 'https://sports.tipico.de/de/alle/1101/652301',
+  },
+  {
+    competition: 'JPN / J1 League',
+    url: 'https://sports.tipico.de/de/alle/1101/82301',
+  },
+  {
+    competition: 'JPN / J2 League',
+    url: 'https://sports.tipico.de/de/alle/1101/3034301',
+  },
+  {
+    competition: 'JPN / J3 League',
+    url: 'https://sports.tipico.de/de/alle/1101/10327301',
+  },
+  {
+    competition: 'JPN / J. League Cup',
+    url: 'https://sports.tipico.de/de/alle/1101/virtual_japanLeagueCupFootballAllGroupMatches',
+  },
+  {
+    competition: 'JPN / Emperors Cup',
+    url: 'https://sports.tipico.de/de/alle/1101/5126301',
+  },
+  {
+    competition: 'KOR / K-League 1',
+    url: 'https://sports.tipico.de/de/alle/1101/3284301',
+  },
+  {
+    competition: 'KOR / K-League 2',
+    url: 'https://sports.tipico.de/de/alle/1101/6230301',
+  },
+  {
+    competition: 'KOR / K3 League',
+    url: 'https://sports.tipico.de/de/alle/1101/93820301',
+  },
+
+  //america
+  {
+    competition: 'ARG / Primera División', // Gleich Liga Profesional de Futbol
+    url: 'https://sports.tipico.de/de/alle/1101/68301',
+  },
+  {
+    competition: 'ARG / Primera Nacional', // Gruppe A
+    url: 'https://sports.tipico.de/de/alle/1101/37309301',
+  },
+  {
+    competition: 'ARG / Primera Nacional', // Gruppe B
+    url: 'https://sports.tipico.de/de/alle/1101/37310301',
+  },
+  {
+    competition: 'ARG / Primera B',
+    url: 'https://sports.tipico.de/de/alle/1101/85016301',
+  },
+  {
+    competition: 'BRA / Série A',
+    url: 'https://sports.tipico.de/de/alle/1101/83301',
+  },
+  {
+    competition: 'BRA / Série B',
+    url: 'https://sports.tipico.de/de/alle/1101/1449301',
+  },
+  {
+    competition: 'BRA / Série C',
+    url: 'https://sports.tipico.de/de/alle/1101/27213301',
+  },
+  {
+    competition: 'COL / Categoría Primera A', // Gruppe A
+    url: 'https://sports.tipico.de/de/alle/1101/81703301',
+  },
+  {
+    competition: 'COL / Categoría Primera A', // Gruppe B
+    url: 'https://sports.tipico.de/de/alle/1101/81705301',
+  },
+  {
+    competition: 'CHL / Primera Division',
+    url: 'https://sports.tipico.de/de/alle/1101/67280301',
+  },
+  {
+    competition: 'CHL / Primera B',
+    url: 'https://sports.tipico.de/de/alle/1101/61476301',
+  },
+  {
+    competition: 'ECU / Serie A', // ?
+    url: 'https://sports.tipico.de/de/alle/1101/16887301',
+  },
+  {
+    competition: 'ECU / Serie B', // ?
+    url: 'https://sports.tipico.de/de/alle/1101/77667301',
+  },
+  {
+    competition: 'PER / Primera Division',
+    url: 'https://sports.tipico.de/de/alle/1101/34468301',
+  },
+  {
+    competition: 'PER / Segunda Division',
+    url: 'https://sports.tipico.de/de/alle/1101/13431301',
+  },
+  {
+    competition: 'URY / Primera Division', // Gruppe A
+    url: 'https://sports.tipico.de/de/alle/1101/57777301',
+  },
+  {
+    competition: 'URY / Primera Division',
+    url: 'https://sports.tipico.de/de/alle/1101/60005301',
+  },
+  {
+    competition: 'USA / Major Soccer League',
+    url: 'https://sports.tipico.de/de/alle/1101/18301',
+  },
+  {
+    competition: 'USA / USL Championship',
+    url: 'https://sports.tipico.de/de/alle/1101/78360301',
+  },
+  //africa
+
+  //oceania
+  {
+    competition: 'AUS / NPL', // Victoria
+    url: 'ttps://sports.tipico.de/de/alle/1101/10216301',
+  },
+  {
+    competition: 'AUS / NPL', // South Australia
+    url: 'https://sports.tipico.de/de/alle/1101/31384301',
+  },
+  {
+    competition: 'AUS / NPL', // Queensland
+    url: 'https://sports.tipico.de/de/alle/1101/31283301',
+  },
+  {
+    competition: 'AUS / NPL', // Western Australia
+    url: 'https://sports.tipico.de/de/alle/1101/31499301',
+  },
+  {
+    competition: 'AUS / NPL', // Capital Football
+    url: 'https://sports.tipico.de/de/alle/1101/31281301',
+  },
+  {
+    competition: 'AUS / NPL', // Tasmania
+    url: 'https://sports.tipico.de/de/alle/1101/31508301',
+  },
+  {
+    competition: 'AUS / NPL', // Northern NSW
+    url: 'https://sports.tipico.de/de/alle/1101/31378301',
+  },
+  {
+    competition: 'AUS / NPL', // New South Wales
+    url: 'https://sports.tipico.de/de/alle/1101/31300301',
+  },
+];
+
+let allArr = [
+  ...competitionUrlsSpreadex,
+  ...competitionUrls888sport,
+  ...competitionUrlsBwin,
+  ...competitionUrlsTipico,
+];
+
+let allComps = Array.from(new Set(allArr.map((obj) => obj.competition))).sort();
+
+allComps.forEach((str) => console.log(str));
