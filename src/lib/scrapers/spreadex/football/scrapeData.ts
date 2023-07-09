@@ -1,4 +1,4 @@
-import spreadexScrapeUrl from '@lib/api/spreadex/spreadexScrapeUrl';
+import spreadexScrapeUrl from '@lib/scrapers/spreadex/spreadexScrapeUrl';
 import queueScrapedUrls from '@lib/utils/queueScrapedUrls';
 
 /* Füttert Scraping Funktion mit den Urls, sammelt die Rückgaben und gibt sie in einer Array zürück */

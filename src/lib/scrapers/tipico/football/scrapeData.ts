@@ -1,4 +1,4 @@
-import tipicoScrapeUrl from '@lib/api/tipico/tipicoScrapeUrl';
+import tipicoScrapeUrl from '@lib/scrapers/tipico/tipicoScrapeUrl';
 import queueScrapedUrls from '@lib/utils/queueScrapedUrls';
 
 /* Scraping Logik für Tipico */

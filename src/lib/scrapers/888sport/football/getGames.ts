@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 import competitionUrlList from './competitionUrlList';
-import tipicoScrapeUrl from '../tipicoScrapeUrl';
+import _888sportScrapeUrl from '../888sportScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
   getNormalizedDateFormat,
@@ -10,6 +10,7 @@ import {
 /* TODO: Typ Definition auslagern */
 /* Datenstruktur für Fussball */
 interface FootballModel {
+  bookie: string;
   competition: {
     country: string;
     name: string;
@@ -31,15 +32,15 @@ interface FootballModel {
 const getGames = async (): Promise<FootballModel[]> => {
   const games: FootballModel[] = [];
 
-  const pageData: string[][] | undefined = await scrapeAllUrls(
+  const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
-    tipicoScrapeUrl
+    _888sportScrapeUrl
   );
 
   let competitionCountry: string;
   let competitionName: string;
 
-  pageData?.forEach((competition) => {
+  scrapedData?.forEach((competition) => {
     // Wenn das Element leer ist, spring zum nächsten
     if (!competition[0]) return;
 
@@ -56,6 +57,7 @@ const getGames = async (): Promise<FootballModel[]> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
+          bookie: '888sport',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -63,37 +65,28 @@ const getGames = async (): Promise<FootballModel[]> => {
           games: [],
         });
       } else {
-        let date = '';
-        let dateTime = '';
-        [
-          ...$(
-            '.SportsCompetitionsEvents-styles-competitions-events-block'
-          ).children(),
-        ].forEach((item) => {
-          if ($(item).hasClass('EventDateHeader-styles-event-date-header')) {
-            date = $(item).text();
-          } else {
-            dateTime =
-              date + ', ' + $(item).find('.EventDateTime-styles-time').text();
-            const link = '/de/event' + $(item).attr('href')?.split('/event')[1];
-            const team1 = $(item)
-              .find('.EventTeams-styles-team-title')
+        [...$('.eventList__content-section')].forEach((gameDay) => {
+          [...$(gameDay).find('.bet-card')].forEach((game) => {
+            const date = $(game).find('time').attr('datetime') || '';
+
+            const link = $(game).find('.event-description').attr('href') || '';
+
+            const team1 = $(game).find('.event-name__text').eq(0).text();
+
+            const team2 = $(game).find('.event-name__text').eq(1).text();
+
+            const team1Win = $(game)
+              .find('.bb-sport-event__selection')
               .eq(0)
               .text();
-            const team2 = $(item)
-              .find('.EventTeams-styles-team-title')
+
+            const draw = $(game)
+              .find('.bb-sport-event__selection')
               .eq(1)
               .text();
-            const team1Win = $(item)
-              .find('.EventOddButton-styles-odd-button')
-              .eq(0)
-              .text();
-            const draw = $(item)
-              .find('.EventOddButton-styles-odd-button')
-              .eq(1)
-              .text();
-            const team2Win = $(item)
-              .find('.EventOddButton-styles-odd-button')
+
+            const team2Win = $(game)
+              .find('.bb-sport-event__selection')
               .eq(2)
               .text();
 
@@ -105,16 +98,17 @@ const getGames = async (): Promise<FootballModel[]> => {
               )
               ?.games.push({
                 link: link,
-                date: getNormalizedDateFormat(dateTime, 'tipico'),
-                team1: team1,
-                team2: team2,
+                date: getNormalizedDateFormat(date, '888sport'),
+                team1: team1.trim(),
+                team2: team2.trim(),
+                //TODO: Odds richtig interpretieren, sodass es einheitlich ist.
                 odds: {
                   team1Win: getNormalizedOddsFormat(team1Win),
                   draw: getNormalizedOddsFormat(draw),
                   team2Win: getNormalizedOddsFormat(team2Win),
                 },
               });
-          }
+          });
         });
       }
     });

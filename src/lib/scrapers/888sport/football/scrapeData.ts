@@ -1,4 +1,4 @@
-import _888sportScrapeUrl from '@lib/api/888sport/888sportScrapeUrl';
+import _888sportScrapeUrl from '@lib/scrapers/888sport/888sportScrapeUrl';
 import queueScrapedUrls from '@lib/utils/queueScrapedUrls';
 
 /* Füttert Scraping Funktion mit den Urls, sammelt die Rückgaben und gibt sie in einer Array zürück */

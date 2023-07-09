@@ -10,6 +10,7 @@ import {
 /* TODO: Typ Definition auslagern */
 /* Datenstruktur für Fussball */
 interface FootballModel {
+  bookie: string;
   competition: {
     country: string;
     name: string;
@@ -59,6 +60,7 @@ const getGames = async (): Promise<FootballModel[]> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
+          bookie: 'spreadex',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -83,8 +85,8 @@ const getGames = async (): Promise<FootballModel[]> => {
             ?.games.push({
               link: link,
               date: getNormalizedDateFormat(date, 'spreadex'),
-              team1: team1,
-              team2: team2,
+              team1: team1.trim(),
+              team2: team2.trim(),
               odds: {
                 team1Win: getNormalizedOddsFormat(team1Win),
                 draw: getNormalizedOddsFormat(draw),

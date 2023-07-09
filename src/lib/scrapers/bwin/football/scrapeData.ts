@@ -1,4 +1,4 @@
-import bwinScrapeUrl from '@lib/api/bwin/bwinScrapeUrl';
+import bwinScrapeUrl from '@lib/scrapers/bwin/bwinScrapeUrl';
 import queueScrapedUrls from '@lib/utils/queueScrapedUrls';
 
 /* Füttert Scraping Funktion mit den Urls, sammelt 

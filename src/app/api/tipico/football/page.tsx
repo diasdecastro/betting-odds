@@ -1,4 +1,4 @@
-import getGames from '@lib/api/tipico/football/getGames';
+import getGames from '@lib/scrapers/tipico/football/getGames';
 
 const getFootballGames = async (req, res) => {
   try {
