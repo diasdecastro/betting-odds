@@ -3,9 +3,9 @@ import competitionUrlList from './competitionUrlList';
 import spreadexScrapeUrl from '../spreadexScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
-  getNormalizedDateFormat,
-  getNormalizedOddsFormat,
-} from '@lib/utils/normalizeDataHelper';
+  getStandardizedDateFormat,
+  getStandardizedOddsFormat,
+} from '@lib/utils/standardizeDataHelper';
 
 /* TODO: Typ Definition auslagern */
 /* Datenstruktur für Fussball */

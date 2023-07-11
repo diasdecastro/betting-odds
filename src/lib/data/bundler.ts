@@ -11,7 +11,7 @@ interface GamesBundle {
   }[][];
 }
 
-/* Diese Funktion nimmt die gescrapete Daten von den Einzelnen Bookien und bundelt die
+/* Diese Funktion nimmt die gescrapete Daten von den Einzelnen Bookies und bundelt die
 die Spiele zusammen */
 /* TODO: Scheint zu Funktionieren. TESTEN, TESTEN, TESTEN */
 /* TODO: Auf Datum Prüfen */
