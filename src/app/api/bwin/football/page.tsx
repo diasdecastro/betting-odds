@@ -1,4 +1,4 @@
-import getGames from '@lib/api/bwin/football/getGames';
+import getGames from '@lib/scrapers/bwin/football/getGames';
 
 const getFootballGames = async (req, res) => {
   try {

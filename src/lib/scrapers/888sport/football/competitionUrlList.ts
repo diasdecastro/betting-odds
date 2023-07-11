@@ -113,7 +113,7 @@ const competitionUrlList = [
   },
   {
     competition: 'BRA / Série B',
-    url: 'https://www.888sport.de/football/brazil/serie-a/',
+    url: 'https://www.888sport.de/fu%C3%9Fball/brasilien/brasilien-serie-b-t-329509/',
   },
   {
     competition: 'BRA / Série C',

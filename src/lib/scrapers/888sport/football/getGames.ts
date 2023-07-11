@@ -3,13 +3,14 @@ import competitionUrlList from './competitionUrlList';
 import _888sportScrapeUrl from '../888sportScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
-  getNormalizedDateFormat,
-  getNormalizedOddsFormat,
-} from '@lib/utils/normalizeDataHelper';
+  getStandardizedDateFormat,
+  getStandardizedOddsFormat,
+} from '@lib/utils/standardizeDataHelper';
 
 /* TODO: Typ Definition auslagern */
 /* Datenstruktur für Fussball */
 interface FootballModel {
+  bookie: string;
   competition: {
     country: string;
     name: string;
@@ -56,6 +57,7 @@ const getGames = async (): Promise<FootballModel[]> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
+          bookie: '888sport',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -97,8 +99,8 @@ const getGames = async (): Promise<FootballModel[]> => {
               ?.games.push({
                 link: link,
                 date: getNormalizedDateFormat(date, '888sport'),
-                team1: team1,
-                team2: team2,
+                team1: team1.trim(),
+                team2: team2.trim(),
                 //TODO: Odds richtig interpretieren, sodass es einheitlich ist.
                 odds: {
                   team1Win: getNormalizedOddsFormat(team1Win),

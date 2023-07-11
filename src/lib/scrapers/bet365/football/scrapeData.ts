@@ -1,4 +1,4 @@
-import bet365ScrapeUrl from '@lib/api/bet365/bet365ScrapeUrl';
+import bet365ScrapeUrl from '@lib/scrapers/bet365/bet365ScrapeUrl';
 import promisifyRequestsList from '@lib/utils/queueScrapedUrls';
 
 const scrapeData = async (): Promise<string[][] | undefined> => {

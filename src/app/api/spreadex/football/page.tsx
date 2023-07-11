@@ -1,4 +1,4 @@
-import getGames from '@lib/api/spreadex/football/getGames';
+import getGames from '@lib/scrapers/spreadex/football/getGames';
 
 const getFootballGames = async (req, res) => {
   try {
