@@ -1,11 +1,11 @@
 import Fuse from 'fuse.js';
 
-interface GamesBundle {
+interface CompetitionBundle {
   competition: {
     country: string;
     name: string;
   };
-  gamesBundle: {
+  gameBundles: {
     bookie: string;
     gameData: object;
   }[][];
@@ -15,16 +15,18 @@ interface GamesBundle {
 die Spiele zusammen */
 /* TODO: Scheint zu Funktionieren. TESTEN, TESTEN, TESTEN */
 /* TODO: Auf Datum Prüfen */
-const bundler = (...bookieScrapedData: any[][]): GamesBundle[] => {
+//TODO: Typen strikter machen
+//TODO: Error Handling
+const bundler = (...bookieScrapedData: any[][]): CompetitionBundle[] => {
   let allScrapedData: any[][] = [];
-  let results: GamesBundle[] = [];
+  let results: CompetitionBundle[] = [];
   for (const dataFromBookie of bookieScrapedData) {
     allScrapedData.push(dataFromBookie);
   }
 
   allScrapedData.forEach((bookie) => {
     bookie.forEach((bookieCompetitionObj) => {
-      let getCompetition: GamesBundle;
+      let getCompetition: CompetitionBundle;
       const findCompetitionInResults = results.find(
         (obj) =>
           obj.competition.country ===
@@ -40,15 +42,15 @@ const bundler = (...bookieScrapedData: any[][]): GamesBundle[] => {
             country: bookieCompetitionObj.competition.country,
             name: bookieCompetitionObj.competition.name,
           },
-          gamesBundle: [],
+          gameBundles: [],
         };
         results.push(getCompetition);
       }
 
       let bool = true;
       bookieCompetitionObj.games.forEach((game) => {
-        if (getCompetition.gamesBundle.length > 0) {
-          getCompetition.gamesBundle.forEach((bundle) => {
+        if (getCompetition.gameBundles.length > 0) {
+          getCompetition.gameBundles.forEach((bundle) => {
             const fuseTeam1 = new Fuse(bundle, {
               keys: ['gameData.team1'],
               includeScore: true,
@@ -69,7 +71,7 @@ const bundler = (...bookieScrapedData: any[][]): GamesBundle[] => {
             let bestScore = Infinity;
             let totalScore;
 
-            for (let i = 0; i < getCompetition.gamesBundle.length; i++) {
+            for (let i = 0; i < getCompetition.gameBundles.length; i++) {
               const scoreTeam1 =
                 (searchTeam1[i] && searchTeam1[i].score) || Infinity;
               const scoreTeam2 =
@@ -78,7 +80,7 @@ const bundler = (...bookieScrapedData: any[][]): GamesBundle[] => {
 
               if (totalScore < bestScore) {
                 bestScore = totalScore;
-                bestMatch = getCompetition.gamesBundle[i];
+                bestMatch = getCompetition.gameBundles[i];
               }
             }
             if (totalScore < 1) {
@@ -92,7 +94,7 @@ const bundler = (...bookieScrapedData: any[][]): GamesBundle[] => {
           });
         } else {
           bool = false;
-          getCompetition.gamesBundle.push([
+          getCompetition.gameBundles.push([
             {
               // totalScore: 'initial',
               bookie: bookieCompetitionObj.bookie,
@@ -102,7 +104,7 @@ const bundler = (...bookieScrapedData: any[][]): GamesBundle[] => {
         }
 
         if (bool) {
-          getCompetition.gamesBundle.push([
+          getCompetition.gameBundles.push([
             {
               // totalScore: 'initial 2',
               bookie: bookieCompetitionObj.bookie,
