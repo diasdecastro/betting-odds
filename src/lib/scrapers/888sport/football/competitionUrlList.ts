@@ -29,11 +29,11 @@ const competitionUrlList = [
     url: 'https://www.888sport.de/football/denmark/1st-division-20232024-t-484159/',
   },
   {
-    competition: 'ENG / Ligue 1',
+    competition: 'ENG / EFL Ligue One',
     url: 'https://www.888sport.de/fussball/england/league-one/',
   },
   {
-    competition: 'ENG / Ligue 2',
+    competition: 'ENG / EFL Ligue Two',
     url: 'https://www.888sport.de/football/england/england-league-2-t-319578/',
   },
   {
@@ -153,12 +153,12 @@ const competitionUrlList = [
     url: 'https://www.888sport.de/fu%C3%9Fball/schottland/scotland-premiership-t-320613/',
   },
   {
-    competition: 'SCO / Championship',
-    url: 'https://www.888sport.de/football/scotland/scotland-championship-20232024-t-484151/',
-  },
-  {
     competition: 'SCO / League One',
     url: 'https://www.888sport.de/football/scotland/scotland-league-one-20232024-t-484153/',
+  },
+  {
+    competition: 'SCO / Championship',
+    url: 'https://www.888sport.de/football/scotland/scotland-championship-20232024-t-484151/',
   },
   {
     competition: 'SCO / League Two',
