@@ -1,27 +1,27 @@
 import { Page } from 'puppeteer';
 
 /* Scraping Logik für Betway */
-const betAtHomeScrapeUrl = async (
+const betanoScrapeUrl = async (
   competitionUrlObj: { competition: string; url: string },
   page: Page
 ): Promise<string[]> => {
   try {
     await page.bringToFront();
-    await page.waitForSelector('.sport-bet-widgets', { timeout: 0 });
+    await page.waitForSelector('.league-block', { timeout: 0 });
     await page.addScriptTag({
       url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
     });
 
     const pageData: string[] = await page.evaluate(() => {
       // Wenn keine Matches, return leeres Array
-      if ($('.h-bgTo-04517f').length === 0) return [''];
+      if ($('.events-list__grid__event').length === 0) return [''];
 
       const results: string[] = [];
 
-      $('.h-bgTo-04517f')
+      $('.events-list__grid__event')
         .toArray()
         .forEach((item) => {
-          results.push('<table>' + item.outerHTML + '</table>');
+          results.push(item.outerHTML);
         });
 
       return results;
@@ -33,4 +33,4 @@ const betAtHomeScrapeUrl = async (
   }
 };
 
-export default betAtHomeScrapeUrl;
+export default betanoScrapeUrl;

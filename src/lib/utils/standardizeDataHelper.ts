@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+// BUG: Falls Datum in der Vergangenheit (bsp. Wenn nur Tag und Monat angegeben sind), dann nächstes Jahr statt dieses Jahr
 export const getStandardizedDateFormat = (
   dateString: string,
   source: string
@@ -82,6 +83,11 @@ export const getStandardizedDateFormat = (
   // be-at-home format "DD.MM.YY HH:mm"
   else if (source === 'bet-at-home') {
     return moment(dateString, 'DD.MM.YYYY HH:mm').toDate();
+  }
+
+  // betano format "DD/MM HH:mm"
+  else if (source === 'betano') {
+    return moment(dateString, 'DD/MM HH:mm').year(moment().year()).toDate();
   }
   return moment('00.00.0000 00:00', 'DD.MM.YYYY HH:mm').toDate(); //Return invalides Date Objekt
 };
