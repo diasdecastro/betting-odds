@@ -78,6 +78,11 @@ export const getStandardizedDateFormat = (
       'DD.MM.YYYY HH:mm'
     ).toDate();
   }
+
+  // be-at-home format "DD.MM.YY HH:mm"
+  else if (source === 'bet-at-home') {
+    return moment(dateString, 'DD.MM.YYYY HH:mm').toDate();
+  }
   return moment('00.00.0000 00:00', 'DD.MM.YYYY HH:mm').toDate(); //Return invalides Date Objekt
 };
 

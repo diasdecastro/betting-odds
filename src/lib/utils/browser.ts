@@ -10,7 +10,7 @@ const startBrowser = async (): Promise<Browser | undefined> => {
       ignoreHTTPSErrors: true,
     });
   } catch (e) {
-    throw e;
+    return undefined;
   }
   return browser;
 };

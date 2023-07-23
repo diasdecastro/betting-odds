@@ -29,18 +29,20 @@ interface FootballModel {
 }
 
 /* Gibt Array mit Einträge des Typens FootballModel zurück */
-const getGames = async (): Promise<FootballModel[]> => {
+const getGames = async (): Promise<FootballModel[] | void> => {
   const games: FootballModel[] = [];
 
-  const pageData: string[][] | undefined = await scrapeAllUrls(
+  const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
     tipicoScrapeUrl
   );
 
+  if (scrapedData.length === 0) return;
+
   let competitionCountry: string;
   let competitionName: string;
 
-  pageData?.forEach((competition) => {
+  scrapedData?.forEach((competition) => {
     // Wenn das Element leer ist, spring zum nächsten
     if (!competition[0]) return;
 

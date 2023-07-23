@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 import competitionUrlList from './competitionUrlList';
-import bwinScrapeUrl from '../bwinScrapeUrl';
+import betAtHomeScrapeUrl from '../betAtHomeScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
   getStandardizedDateFormat,
@@ -34,8 +34,9 @@ const getGames = async (): Promise<FootballModel[] | void> => {
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
-    bwinScrapeUrl
+    betAtHomeScrapeUrl
   );
+  // console.log('test: ', scrapedData);
 
   if (scrapedData.length === 0) return;
 
@@ -59,7 +60,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
-          bookie: 'bwin',
+          bookie: 'bet-at-home',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -67,39 +68,15 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           games: [],
         });
       } else {
-        const link = $('a').attr('href') || '';
+        const link = $('a').eq(0).attr('href') || '';
         let date = '';
-        if ($('.live-icon').length > 0) {
-          date = 'live';
-        } else {
-          date = $('.starting-time').text().replace(' / ', ', ');
-        }
-        const team1 = $('.participants-pair-game > .participant-wrapper')
-          .eq(0)
-          .find('.participant')
-          .text();
-        const team2 = $('.participants-pair-game > .participant-wrapper')
-          .eq(1)
-          .find('.participant')
-          .text();
-        const team1Win = $('.grid-event-wrapper')
-          .find('.grid-option-group')
-          .eq(0)
-          .find('.option-value')
-          .eq(0)
-          .text();
-        const draw = $('.grid-event-wrapper')
-          .find('.grid-option-group')
-          .eq(0)
-          .find('.option-value')
-          .eq(1)
-          .text();
-        const team2Win = $('.grid-event-wrapper')
-          .find('.grid-option-group')
-          .eq(0)
-          .find('.option-value')
-          .eq(2)
-          .text();
+        date = $('.date').text();
+        // TODO: Fall Spiel ist live
+        const team1 = $('a').eq(0).text().split(' - ')[0];
+        const team2 = $('a').eq(0).text().split(' - ')[1];
+        const team1Win = $('.ods-odd-link').eq(0).text();
+        const draw = $('.ods-odd-link').eq(1).text();
+        const team2Win = $('.ods-odd-link').eq(2).text();
 
         games
           ?.find(
@@ -109,7 +86,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           )
           ?.games.push({
             link: link,
-            date: getStandardizedDateFormat(date, 'bwin'),
+            date: getStandardizedDateFormat(date, 'bet-at-home'),
             team1: team1.trim(),
             team2: team2.trim(),
             odds: {
