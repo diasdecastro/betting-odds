@@ -48,6 +48,7 @@ const scrapeAllUrls = async (
 
   await Promise.all(promises);
 
+  console.log('Closing Browser...');
   await browser.close();
   return scrapedData;
 };

@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 import competitionUrlList from './competitionUrlList';
-import betanoScrapeUrl from '../betanoScrapeUrl';
+import oddsetScrapeUrl from '../oddsetScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
   getStandardizedDateFormat,
@@ -34,7 +34,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
-    betanoScrapeUrl
+    oddsetScrapeUrl
   );
   // console.log('test: ', scrapedData);
 
@@ -60,7 +60,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
-          bookie: 'betano',
+          bookie: 'oddset',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -69,43 +69,23 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         });
       } else {
         const link = $('a').eq(0).attr('href') || '';
-        let date = '';
-        date =
-          $('.events-list__grid__info__datetime')
-            .find('span')
-            .eq(0)
-            .text()
-            .trim() +
-          ' ' +
-          $('.events-list__grid__info__datetime')
-            .find('span')
-            .eq(1)
-            .text()
-            .trim();
         // TODO: Fall Spiel ist live
-        const team1 = $(
-          '.events-list__grid__info__main__participants__participant-name'
-        )
+        let date = $('.starting-time').text();
+        const team1 = $('.participant').eq(0).text();
+        const team2 = $('.participant').eq(1).text();
+        const team1Win = $('.grid-option-group')
+          .eq(0)
+          .find('ms-font-resizer')
           .eq(0)
           .text();
-        const team2 = $(
-          '.events-list__grid__info__main__participants__participant-name'
-        )
+        const draw = $('.grid-option-group')
+          .eq(0)
+          .find('ms-font-resizer')
           .eq(1)
           .text();
-        const team1Win = $('.selections')
+        const team2Win = $('.grid-option-group')
           .eq(0)
-          .find('.selections__selection__odd')
-          .eq(0)
-          .text();
-        const draw = $('.selections')
-          .eq(0)
-          .find('.selections__selection__odd')
-          .eq(1)
-          .text();
-        const team2Win = $('.selections')
-          .eq(0)
-          .find('.selections__selection__odd')
+          .find('ms-font-resizer')
           .eq(2)
           .text();
 
