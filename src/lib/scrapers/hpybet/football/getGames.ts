@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 import competitionUrlList from './competitionUrlList';
-import betanoScrapeUrl from '../betanoScrapeUrl';
+import hpyScrapeUrl from '../hpybetScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
   getStandardizedDateFormat,
@@ -34,7 +34,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
-    betanoScrapeUrl
+    hpyScrapeUrl
   );
   // console.log('test: ', scrapedData);
 
@@ -60,7 +60,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
-          bookie: 'betano',
+          bookie: 'hpybet',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -69,45 +69,18 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         });
       } else {
         const link = $('a').eq(0).attr('href') || '';
-        let date = '';
-        date =
-          $('.events-list__grid__info__datetime')
-            .find('span')
-            .eq(0)
-            .text()
-            .trim() +
+        let date =
+          $('div').attr('date')?.replaceAll('-', '.') +
           ' ' +
-          $('.events-list__grid__info__datetime')
-            .find('span')
-            .eq(1)
-            .text()
-            .trim();
+          $('.hourMatchFootball').text();
+        // console.log(date);
+        // date =
         // TODO: Fall Spiel ist live
-        const team1 = $(
-          '.events-list__grid__info__main__participants__participant-name'
-        )
-          .eq(0)
-          .text();
-        const team2 = $(
-          'events-list__grid__info__main__participants__participant-name'
-        )
-          .eq(1)
-          .text();
-        const team1Win = $('.selections')
-          .eq(0)
-          .find('.selections__selection__odd')
-          .eq(0)
-          .text();
-        const draw = $('.selections')
-          .eq(0)
-          .find('.selections__selection__odd')
-          .eq(1)
-          .text();
-        const team2Win = $('.selections')
-          .eq(0)
-          .find('.selections__selection__odd')
-          .eq(2)
-          .text();
+        const team1 = $('a').eq(0).text().split(' - ')[0];
+        const team2 = $('a').eq(0).text().split(' - ')[1];
+        const team1Win = $('.eightFirstCol').eq(0).text(); //TODO: odds falsch
+        const draw = $('.eightFirstCol').eq(1).text();
+        const team2Win = $('.eightFirstCol').eq(2).text();
 
         games
           ?.find(
@@ -117,7 +90,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           )
           ?.games.push({
             link: link,
-            date: getStandardizedDateFormat(date, 'betano'),
+            date: getStandardizedDateFormat(date, 'hpybet'),
             team1: team1.trim(),
             team2: team2.trim(),
             odds: {

@@ -81,7 +81,7 @@ export const getStandardizedDateFormat = (
   }
 
   // be-at-home format "DD.MM.YY HH:mm"
-  else if (source === 'bet-at-home') {
+  else if (source === 'bet-at-home' || source === 'hpybet') {
     return moment(dateString, 'DD.MM.YYYY HH:mm').toDate();
   }
 
