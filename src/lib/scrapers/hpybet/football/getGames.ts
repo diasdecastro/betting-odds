@@ -73,14 +73,23 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           $('div').attr('date')?.replaceAll('-', '.') +
           ' ' +
           $('.hourMatchFootball').text();
-        // console.log(date);
-        // date =
+
         // TODO: Fall Spiel ist live
         const team1 = $('a').eq(0).text().split(' - ')[0];
         const team2 = $('a').eq(0).text().split(' - ')[1];
-        const team1Win = $('.eightFirstCol').eq(0).text(); //TODO: odds falsch
-        const draw = $('.eightFirstCol').eq(1).text();
-        const team2Win = $('.eightFirstCol').eq(2).text();
+        // Warum machen sie andersrum :(
+        const team1Win = $('.eightFirstCol')
+          .find('.footballBlueBetting')
+          .eq(-1)
+          .text();
+        const draw = $('.eightFirstCol')
+          .find('.footballBlueBetting')
+          .eq(-2)
+          .text();
+        const team2Win = $('.eightFirstCol')
+          .find('.footballBlueBetting')
+          .eq(-3)
+          .text();
 
         games
           ?.find(
