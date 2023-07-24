@@ -1,0 +1,4 @@
+TODO: Für alle Scraper (bis auf tipico, bwin, spreadex, 888sport?) muss der Fall gehandelt werden, dass es keine Spiele gibt (z.B. wenn die Saison fertig ist).
+TODO: Ich glaube, dass wir automatisierte Tests brauchen
+TODO: Datenbank muss implementiert werden (hoffentlich nicht so schwer)
+TODO: Date format Funktion optimieren

@@ -69,7 +69,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         });
       } else {
         const link = $('a').eq(0).attr('href') || '';
-        let date =
+        const date =
           $('div').attr('date')?.replaceAll('-', '.') +
           ' ' +
           $('.hourMatchFootball').text();

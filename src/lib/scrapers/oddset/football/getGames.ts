@@ -70,7 +70,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
       } else {
         const link = $('a').eq(0).attr('href') || '';
         // TODO: Fall Spiel ist live
-        let date = $('.starting-time').text();
+        const date = $('.starting-time').text();
         const team1 = $('.participant').eq(0).text();
         const team2 = $('.participant').eq(1).text();
         const team1Win = $('.grid-option-group')

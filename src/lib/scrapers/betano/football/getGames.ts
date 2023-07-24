@@ -69,8 +69,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         });
       } else {
         const link = $('a').eq(0).attr('href') || '';
-        let date = '';
-        date =
+        const date =
           $('.events-list__grid__info__datetime')
             .find('span')
             .eq(0)
@@ -82,6 +81,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
             .eq(1)
             .text()
             .trim();
+
         // TODO: Fall Spiel ist live
         const team1 = $(
           '.events-list__grid__info__main__participants__participant-name'

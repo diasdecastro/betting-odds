@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 import competitionUrlList from './competitionUrlList';
-import betAtHomeScrapeUrl from '../betAtHomeScrapeUrl';
+import admiralbetScrapeUrl from '../admiralbetScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
   getStandardizedDateFormat,
@@ -34,7 +34,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
-    betAtHomeScrapeUrl
+    admiralbetScrapeUrl
   );
   // console.log('test: ', scrapedData);
 
@@ -60,7 +60,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
-          bookie: 'bet-at-home',
+          bookie: 'admiralbet',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -69,13 +69,35 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         });
       } else {
         const link = $('a').eq(0).attr('href') || '';
-        const date = $('.date').text();
+        let date = $('asw-mini-scoreboard-phases')
+          .find('span')
+          .text()
+          .split('. ')[1]
+          .replace(' • ', ' ');
         // TODO: Fall Spiel ist live
-        const team1 = $('a').eq(0).text().split(' - ')[0];
-        const team2 = $('a').eq(0).text().split(' - ')[1];
-        const team1Win = $('.ods-odd-link').eq(0).text();
-        const draw = $('.ods-odd-link').eq(1).text();
-        const team2Win = $('.ods-odd-link').eq(2).text();
+        const team1 = $('asw-mini-scoreboard-competitors')
+          .find('div')
+          .eq(0)
+          .text();
+        const team2 = $('asw-mini-scoreboard-competitors')
+          .find('div')
+          .eq(1)
+          .text();
+        const team1Win = $('asw-sports-grid-row-market')
+          .eq(0)
+          .find('asw-sports-grid-row-selection')
+          .eq(0)
+          .text();
+        const draw = $('asw-sports-grid-row-market')
+          .eq(0)
+          .find('asw-sports-grid-row-selection')
+          .eq(1)
+          .text();
+        const team2Win = $('asw-sports-grid-row-market')
+          .eq(0)
+          .find('asw-sports-grid-row-selection')
+          .eq(2)
+          .text();
 
         games
           ?.find(
@@ -85,7 +107,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           )
           ?.games.push({
             link: link,
-            date: getStandardizedDateFormat(date, 'bet-at-home'),
+            date: getStandardizedDateFormat(date, 'admiralbet'),
             team1: team1.trim(),
             team2: team2.trim(),
             odds: {

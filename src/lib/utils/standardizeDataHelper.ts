@@ -80,7 +80,7 @@ export const getStandardizedDateFormat = (
     ).toDate();
   }
 
-  // be-at-home format "DD.MM.YY HH:mm"
+  // be-at-home, hpybet format "DD.MM.YY HH:mm"
   else if (source === 'bet-at-home' || source === 'hpybet') {
     return moment(dateString, 'DD.MM.YYYY HH:mm').toDate();
   }
@@ -88,6 +88,11 @@ export const getStandardizedDateFormat = (
   // betano format "DD/MM HH:mm"
   else if (source === 'betano') {
     return moment(dateString, 'DD/MM HH:mm').year(moment().year()).toDate();
+  }
+
+  // admiralbet format "DD.MM HH:mm"
+  else if (source == 'admiralbet' || source === 'neobet') {
+    return moment(dateString, 'DD.MM HH:mm').year(moment().year()).toDate();
   }
   return moment('00.00.0000 00:00', 'DD.MM.YYYY HH:mm').toDate(); //Return invalides Date Objekt
 };
