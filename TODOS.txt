@@ -2,3 +2,4 @@ TODO: Für alle Scraper (bis auf tipico, bwin, spreadex, 888sport?) muss der Fal
 TODO: Ich glaube, dass wir automatisierte Tests brauchen
 TODO: Datenbank muss implementiert werden (hoffentlich nicht so schwer)
 TODO: Date format Funktion optimieren
+TODO: Bei getGames skippen, wenn Daten fehlen (z.B. Mannschaftsname oder Datum)

@@ -94,6 +94,11 @@ export const getStandardizedDateFormat = (
   else if (source == 'admiralbet' || source === 'neobet') {
     return moment(dateString, 'DD.MM HH:mm').year(moment().year()).toDate();
   }
+
+  // winamax Format "DD MMM YYYY um 21:00"
+  else if (source === 'winamax') {
+    return moment(dateString.replace('um ', ''), 'DD MMM HH:mm').toDate();
+  }
   return moment('00.00.0000 00:00', 'DD.MM.YYYY HH:mm').toDate(); //Return invalides Date Objekt
 };
 
