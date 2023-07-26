@@ -81,7 +81,11 @@ export const getStandardizedDateFormat = (
   }
 
   // be-at-home, hpybet format "DD.MM.YY HH:mm"
-  else if (source === 'bet-at-home' || source === 'hpybet') {
+  else if (
+    source === 'bet-at-home' ||
+    source === 'hpybet' ||
+    source === 'sportingbet'
+  ) {
     return moment(dateString, 'DD.MM.YYYY HH:mm').toDate();
   }
 
@@ -94,7 +98,8 @@ export const getStandardizedDateFormat = (
   else if (
     source == 'admiralbet' ||
     source === 'neobet' ||
-    source === 'merkur-sports'
+    source === 'merkur-sports' ||
+    source === 'tipwin'
   ) {
     return moment(dateString, 'DD.MM HH:mm').year(moment().year()).toDate();
   }

@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 import competitionUrlList from './competitionUrlList';
-import merkurSportsScrapeUrl from '../merkurSportsScrapeUrl';
+import sportingbetScrapeUrl from '../sportingbetScrapeUrl';
 import scrapeAllUrls from '@lib/utils/scrapeAllUrls';
 import {
   getStandardizedDateFormat,
@@ -34,8 +34,9 @@ const getGames = async (): Promise<FootballModel[] | void> => {
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
-    merkurSportsScrapeUrl
+    sportingbetScrapeUrl
   );
+  // console.log('test: ', scrapedData);
 
   if (scrapedData.length === 0) return;
 
@@ -59,7 +60,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         competitionName = competitionData.split(' / ')[1];
 
         games.push({
-          bookie: 'merkur-sports',
+          bookie: 'sportingbet',
           competition: {
             country: competitionCountry,
             name: competitionName,
@@ -67,30 +68,15 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           games: [],
         });
       } else {
-        const link = `/en/game/${$('.market').attr('id')?.split('-')[0]}` || '';
-        const date = (
-          $('.standings__time').text().trim().split(' ')[1] +
-          $('.standings__starttime').text()
-        ).trim();
+        const link = $('a').eq(0).attr('href') || '';
+        const date = $('.starting-time').text();
 
         // TODO: Fall Spiel ist live
-        const team1 = $('.game__team').eq(0).attr('title') || '';
-        const team2 = $('.game__team').eq(1).attr('title') || '';
-        const team1Win = $('.market-list__element')
-          .eq(0)
-          .find('.odd-value')
-          .eq(0)
-          .text();
-        const draw = $('.market-list__element')
-          .eq(0)
-          .find('.odd-value')
-          .eq(1)
-          .text();
-        const team2Win = $('.market-list__element')
-          .eq(0)
-          .find('.odd-value')
-          .eq(2)
-          .text();
+        const team1 = $('.participant').eq(0).text();
+        const team2 = $('.participant').eq(1).text();
+        const team1Win = $('.option-value').eq(0).text();
+        const draw = $('.option-value').eq(1).text();
+        const team2Win = $('.option-value').eq(2).text();
 
         games
           ?.find(
@@ -100,7 +86,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           )
           ?.games.push({
             link: link,
-            date: getStandardizedDateFormat(date, 'merkur-sports'),
+            date: getStandardizedDateFormat(date, 'sportingbet'),
             team1: team1.trim(),
             team2: team2.trim(),
             odds: {
