@@ -91,7 +91,11 @@ export const getStandardizedDateFormat = (
   }
 
   // admiralbet format "DD.MM HH:mm"
-  else if (source == 'admiralbet' || source === 'neobet') {
+  else if (
+    source == 'admiralbet' ||
+    source === 'neobet' ||
+    source === 'merkur-sports'
+  ) {
     return moment(dateString, 'DD.MM HH:mm').year(moment().year()).toDate();
   }
 
