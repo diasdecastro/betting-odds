@@ -1,4 +1,50 @@
+//TODO: Alphabetisch sortieren
 const competitionUrlList = [
+  //europa
+  {
+    competition: 'AUT / Bundesliga',
+    url: 'https://www.888sport.de/fu%C3%9Fball/%C3%B6sterreich/%C3%B6sterreich-bundesliga-t-321533/',
+  },
+  {
+    competition: 'BEL / Pro League',
+    url: 'https://www.888sport.de/football/belgian-pro-league-betting/',
+  },
+  {
+    competition: 'BGR / First League',
+    url: 'https://www.888sport.de/fu%C3%9Fball/bulgarien/bulgarien-first-division-t-321524/',
+  },
+  {
+    competition: 'CZE / FORTUNA:LIGA', //1. Liga
+    url: 'https://www.888sport.de/football/czech-republic/fortuna-liga-20232024-t-483565/',
+  },
+  {
+    competition: 'CZE / National Football League', //2. Liga
+    url: 'https://www.888sport.de/fu%C3%9Fball/tschechische-republik/tschechien-second-divison-t-323559/',
+  },
+  {
+    competition: 'DNK / Superligaen', //1. Liga
+    url: 'https://www.888sport.de/football/denmark/denmark-1division-t-323159/',
+  },
+  {
+    competition: 'DNK / 1. division', //2. Liga
+    url: 'https://www.888sport.de/football/denmark/1st-division-20232024-t-484159/',
+  },
+  {
+    competition: 'ENG / EFL League One',
+    url: 'https://www.888sport.de/fussball/england/league-one/',
+  },
+  {
+    competition: 'ENG / EFL League Two',
+    url: 'https://www.888sport.de/football/england/england-league-2-t-319578/',
+  },
+  {
+    competition: 'ENG / EFL Championship',
+    url: 'https://www.888sport.de/fu%C3%9Fball/england/england-championship-t-319577/',
+  },
+  {
+    competition: 'ENG / League Cup',
+    url: 'https://www.888sport.de/fu%C3%9Fball/england/england-league-cup-t-319681/',
+  },
   {
     competition: 'ESP / La Liga',
     url: 'https://www.888sport.de/fussball/spanien/la-liga/',
@@ -8,16 +54,40 @@ const competitionUrlList = [
     url: 'https://www.888sport.de/fu%C3%9Fball/spanien/spain-segunda-division-t-319629/',
   },
   {
-    competition: 'FIN / Ykkönen',
+    competition: 'FIN / Veikkausliiga', //1.Liga
+    url: 'https://www.888sport.de/football/finnish-veikkausliiga-betting/',
+  },
+  {
+    competition: 'FIN / Ykkönen', //2.Liga
     url: 'https://www.888sport.de/fu%C3%9Fball/finnland/finland-ykkonen-t-328706/',
   },
   {
     competition: 'FRA / Ligue 1',
-    url: 'https://www.888sport.de/football/france/ligue-1-20232024-t-481457/',
+    url: 'https://www.888sport.de/fussball/frankreich/ligue-1/',
+  },
+  {
+    competition: 'FRA / Ligue 2',
+    url: 'https://www.888sport.de/fu%C3%9Fball/frankreichs/frankreich-ligue-2-t-319564/',
   },
   {
     competition: 'GER / Bundesliga',
     url: 'https://www.888sport.de/football/germany/bundesliga-20232024-t-481461/',
+  },
+  {
+    competition: 'GER / Supercup',
+    url: 'https://www.888sport.de/fu%C3%9Fball/deutschland/deutschland-supercup-t-333930/',
+  },
+  {
+    competition: 'GRC / Super League 1',
+    url: 'https://www.888sport.de/football/greece/superleague-20232024-t-483574/',
+  },
+  {
+    competition: 'HRV / HNL', //Fucking Kroatien. Liga heißt Hrvatska nogometna liga
+    url: 'https://www.888sport.de/fu%C3%9Fball/kroatien/kroatien-first-division-t-152936/',
+  },
+  {
+    competition: 'HUN / NB I', //Fucking Kroatien. Liga heißt Hrvatska nogometna liga
+    url: 'https://www.888sport.de/football/hungary/otp-bank-liga-20232024-t-484160/',
   },
   {
     competition: 'IRL / Premier Division',
@@ -25,10 +95,14 @@ const competitionUrlList = [
   },
   {
     competition: 'ISL / Besta deild karla',
-    url: 'https://www.888sport.de/fu%C3%9Fball/island/island-first-division-t-328311/',
+    url: 'https://www.888sport.de/football/iceland/iceland-premier-league-t-327948/',
   },
   {
     competition: 'ISL / 1. deild karla',
+    url: 'https://www.888sport.de/fu%C3%9Fball/island/island-first-division-t-328311/',
+  },
+  {
+    competition: 'ISL / 2. deild karla',
     url: 'https://www.888sport.de/fu%C3%9Fball/island/island-second-division-t-328219/',
   },
   {
@@ -41,11 +115,59 @@ const competitionUrlList = [
   },
   {
     competition: 'ITA / Serie A',
-    url: 'https://www.888sport.de/football/italy/serie-a-20232024-t-481459/',
+    url: 'https://www.888sport.de/fussball/italien/serie-a/',
   },
   {
     competition: 'ITA / Serie B',
     url: 'https://www.888sport.de/fu%C3%9Fball/italien/italien-serie-b-t-319569/',
+  },
+  {
+    competition: 'NLD / Eredivisie',
+    url: 'https://www.888sport.de/football/dutch-eredivisie-betting/',
+  },
+  {
+    competition: 'NLD / Eerste Divisie',
+    url: 'https://www.888sport.de/football/netherlands/eerste-divisie-20232024-t-484223/',
+  },
+  {
+    competition: 'NOR / Eliteserien',
+    url: 'https://www.888sport.de/fu%C3%9Fball/norwegen/norwegen-premier-league-t-328051/',
+  },
+  {
+    competition: 'NOR / Second Division', //Gruppe 1
+    url: 'https://www.888sport.de/fu%C3%9Fball/norwegen/norwegen-second-division-group-1-t-329544/',
+  },
+  {
+    competition: 'POL / Ekstraklasa',
+    url: 'https://www.888sport.de/football/poland/poland-ekstraklasa-t-320563/',
+  },
+  {
+    competition: 'POL / I liga',
+    url: 'https://www.888sport.de/fu%C3%9Fball/polen/polen-first-league-t-323266/',
+  },
+  {
+    competition: 'ROU / Liga I',
+    url: 'https://www.888sport.de/fussball/rumanien/liga-1/',
+  },
+  {
+    competition: 'SCO / Premiership',
+    url: 'https://www.888sport.de/fu%C3%9Fball/schottland/scotland-premiership-t-320613/',
+  },
+  {
+    competition: 'SCO / League One',
+    url: 'https://www.888sport.de/football/scotland/scotland-league-one-20232024-t-484153/',
+  },
+  {
+    competition: 'SCO / Championship',
+    url: 'https://www.888sport.de/football/scotland/scotland-championship-20232024-t-484151/',
+  },
+  {
+    competition: 'SCO / League Two',
+    url: 'https://www.888sport.de/football/scotland/scotland-league-two-20232024-t-484152/',
+  },
+  {
+    competition: 'SVN / PrvaLiga',
+    url: 'https://www.888sport.de/fu%C3%9Fball/slowenien/slovenia-prva-liga-t-322958/',
   },
   {
     competition: 'SWE / Allsvenskan',
@@ -87,6 +209,11 @@ const competitionUrlList = [
     competition: 'TUR / 1. Lig',
     url: 'https://www.888sport.de/fu%C3%9Fball/t%C3%BCrkei/t%C3%BCrkei-1-lig-t-320221/',
   },
+  //asien
+  {
+    competition: 'KAZ / Premier League',
+    url: 'https://www.888sport.de/fu%C3%9Fball/kasachstan/kazakhstan-premier-league-t-323692/',
+  },
   {
     competition: 'JPN / J2 League',
     url: 'https://www.888sport.de/fu%C3%9Fball/japan/japan-j-league-2-t-328711/',
@@ -99,6 +226,23 @@ const competitionUrlList = [
     competition: 'JPN / Emperors Cup',
     url: 'https://www.888sport.de/fu%C3%9Fball/japan/japan-emperors-cup-t-333161/',
   },
+  {
+    competition: 'JPN / Emperors Cup',
+    url: 'https://www.888sport.de/fu%C3%9Fball/japan/japan-emperors-cup-t-333161/',
+  },
+  {
+    competition: 'KOR / K-League 1',
+    url: 'https://www.888sport.de/football/south-korean-k-league-betting/',
+  },
+  {
+    competition: 'SGP / Premier League',
+    url: 'https://www.888sport.de/fu%C3%9Fball/singapur/singapore-premier-league-t-324050/',
+  },
+  {
+    competition: 'VNM / V.League 1',
+    url: 'https://www.888sport.de/fu%C3%9Fball/vietnam/vietnam-vleague-1-t-322655/',
+  },
+  //amerika
   {
     competition: 'ARG / Primera Nacional',
     url: 'https://www.888sport.de/fu%C3%9Fball/argentinien/argentina-primera-nacional-t-320380/',
@@ -144,6 +288,10 @@ const competitionUrlList = [
     url: 'https://www.888sport.de/fu%C3%9Fball/peru/peru-segunda-division-t-341350/',
   },
   {
+    competition: 'PRY / Primera División',
+    url: 'https://www.888sport.de/fu%C3%9Fball/paraguay/paraguay-primera-division-t-320604/',
+  },
+  {
     competition: 'USA / Major League Soccer',
     url: 'https://www.888sport.de/fu%C3%9Fball/vereinigte-staaten-von-amerika/us-major-league-soccer-t-323521/',
   },
@@ -159,6 +307,7 @@ const competitionUrlList = [
     competition: 'URY / Primera División',
     url: 'https://www.888sport.de/fu%C3%9Fball/uruguay/uruguay-primera-division-t-322363/',
   },
+  //ozeanien
   {
     competition: 'AUS / Queensland Premier League 1',
     url: 'https://www.888sport.de/fu%C3%9Fball/australien/australien-football-queensland-premier-league-t-322653/',
@@ -174,6 +323,11 @@ const competitionUrlList = [
   {
     competition: 'NZL / Chatham Cup',
     url: 'https://www.888sport.de/fu%C3%9Fball/neuseeland/neuseeland-chatham-cup-t-366174/',
+  },
+  //afrika
+  {
+    competition: 'EGY / Premier League',
+    url: 'https://www.888sport.de/fu%C3%9Fball/%C3%A4gypten/egypt-premier-league-t-319816/',
   },
 ];
 

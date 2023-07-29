@@ -29,13 +29,15 @@ interface FootballModel {
 }
 
 /* Gibt Array mit Einträge des Typens FootballModel zurück */
-const getGames = async (): Promise<FootballModel[]> => {
+const getGames = async (): Promise<FootballModel[] | void> => {
   const games: FootballModel[] = [];
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
     bwinScrapeUrl
   );
+
+  if (scrapedData.length === 0) return;
 
   let competitionCountry: string;
   let competitionName: string;

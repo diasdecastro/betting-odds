@@ -32,9 +32,7 @@ const bwinScrapeUrl = async (
 
     return [competitionUrlObj.competition, ...pageData];
   } catch (e) {
-    //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];
-    // throw e;
   }
 };
 

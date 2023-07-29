@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+// BUG: Falls Datum in der Vergangenheit (bsp. Wenn nur Tag und Monat angegeben sind), dann nächstes Jahr statt dieses Jahr
 export const getStandardizedDateFormat = (
   dateString: string,
   source: string
@@ -77,6 +78,35 @@ export const getStandardizedDateFormat = (
       moment(dateString, 'DD.MM.YY HH:mm').format('DD.MM.YYYY HH:mm'),
       'DD.MM.YYYY HH:mm'
     ).toDate();
+  }
+
+  // be-at-home, hpybet format "DD.MM.YY HH:mm"
+  else if (
+    source === 'bet-at-home' ||
+    source === 'hpybet' ||
+    source === 'sportingbet'
+  ) {
+    return moment(dateString, 'DD.MM.YYYY HH:mm').toDate();
+  }
+
+  // betano format "DD/MM HH:mm"
+  else if (source === 'betano') {
+    return moment(dateString, 'DD/MM HH:mm').year(moment().year()).toDate();
+  }
+
+  // admiralbet format "DD.MM HH:mm"
+  else if (
+    source == 'admiralbet' ||
+    source === 'neobet' ||
+    source === 'merkur-sports' ||
+    source === 'tipwin'
+  ) {
+    return moment(dateString, 'DD.MM HH:mm').year(moment().year()).toDate();
+  }
+
+  // winamax Format "DD MMM YYYY um 21:00"
+  else if (source === 'winamax') {
+    return moment(dateString.replace('um ', ''), 'DD MMM HH:mm').toDate();
   }
   return moment('00.00.0000 00:00', 'DD.MM.YYYY HH:mm').toDate(); //Return invalides Date Objekt
 };
