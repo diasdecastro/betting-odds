@@ -1,3 +1,4 @@
+//TODO: Alphabetisch sortieren
 const competitionUrlList = [
   //europe
   {

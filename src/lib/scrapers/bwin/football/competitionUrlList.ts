@@ -1,3 +1,4 @@
+//TODO: Alphabetisch sortieren
 const competitionUrlList = [
   //europe
   {
@@ -211,7 +212,7 @@ const competitionUrlList = [
 
   //asia
   {
-    competition: 'CHN / CFA Super League',
+    competition: 'CHN / Super League',
     url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/china-57/super-league-102717',
   },
   {
@@ -227,7 +228,7 @@ const competitionUrlList = [
     url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/japan-52/emperor-cup-102812',
   },
   {
-    competition: 'KOR / K League 2',
+    competition: 'KOR / K-League 2',
     url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/s%C3%BCdkorea-198/k-league-2-102239',
   },
   {

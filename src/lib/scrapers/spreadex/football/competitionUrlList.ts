@@ -1,3 +1,4 @@
+//TODO: Alphabetisch sortieren
 const competitionUrlList = [
   //europe
   {
@@ -185,7 +186,7 @@ const competitionUrlList = [
     url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/15801/fo/c66',
   },
   {
-    competition: 'USA / Major Soccer League',
+    competition: 'USA / Major League Soccer',
     url: 'https://www.spreadex.com/sports/en-GB/spread-betting/football/league/5660/fo/c66',
   },
 

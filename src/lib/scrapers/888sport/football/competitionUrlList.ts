@@ -1,3 +1,4 @@
+//TODO: Alphabetisch sortieren
 const competitionUrlList = [
   //europa
   {
@@ -29,11 +30,11 @@ const competitionUrlList = [
     url: 'https://www.888sport.de/football/denmark/1st-division-20232024-t-484159/',
   },
   {
-    competition: 'ENG / EFL Ligue One',
+    competition: 'ENG / EFL League One',
     url: 'https://www.888sport.de/fussball/england/league-one/',
   },
   {
-    competition: 'ENG / EFL Ligue Two',
+    competition: 'ENG / EFL League Two',
     url: 'https://www.888sport.de/football/england/england-league-2-t-319578/',
   },
   {
@@ -41,7 +42,7 @@ const competitionUrlList = [
     url: 'https://www.888sport.de/fu%C3%9Fball/england/england-championship-t-319577/',
   },
   {
-    competition: 'ENG / Ligue Cup',
+    competition: 'ENG / League Cup',
     url: 'https://www.888sport.de/fu%C3%9Fball/england/england-league-cup-t-319681/',
   },
   {
@@ -230,7 +231,7 @@ const competitionUrlList = [
     url: 'https://www.888sport.de/fu%C3%9Fball/japan/japan-emperors-cup-t-333161/',
   },
   {
-    competition: 'KOR / K League 1',
+    competition: 'KOR / K-League 1',
     url: 'https://www.888sport.de/football/south-korean-k-league-betting/',
   },
   {
