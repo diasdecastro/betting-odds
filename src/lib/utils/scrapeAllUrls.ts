@@ -23,6 +23,10 @@ const scrapeAllUrls = async (
 
   const promises: Promise<void>[] = competitionUrlList.map(
     async (competitionUrlObj) => {
+      if (competitionUrlObj.url === '') {
+        return;
+      }
+
       const page = await browser.newPage();
 
       //Macht, dass die Seite richtig geladen wird im headless mode
@@ -31,10 +35,6 @@ const scrapeAllUrls = async (
       );
 
       try {
-        if (competitionUrlObj.url === '') {
-          await page.close();
-          return;
-        }
         await page.goto(competitionUrlObj.url, { timeout: 0 });
       } catch (e) {
         await page.close();
