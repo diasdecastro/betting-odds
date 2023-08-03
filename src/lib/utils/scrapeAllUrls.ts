@@ -37,6 +37,7 @@ const scrapeAllUrls = async (
       try {
         await page.goto(competitionUrlObj.url, { timeout: 0 });
       } catch (e) {
+        console.log(e.message);
         await page.close();
         return;
       }

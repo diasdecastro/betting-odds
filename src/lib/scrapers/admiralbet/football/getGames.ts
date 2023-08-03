@@ -72,8 +72,8 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         let date = $('asw-mini-scoreboard-phases')
           .find('span')
           .text()
-          .split('. ')[1]
-          .replace(' • ', ' ');
+          ?.split('. ')[1]
+          ?.replace(' • ', ' ');
         // TODO: Fall Spiel ist live
         const team1 = $('asw-mini-scoreboard-competitors')
           .find('div')

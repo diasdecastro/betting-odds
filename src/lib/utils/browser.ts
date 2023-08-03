@@ -6,7 +6,17 @@ const startBrowser = async (): Promise<Browser | undefined> => {
     console.log('Opening Browser...');
     browser = await launch({
       headless: 'new',
-      args: ['--diable-setuid-sandbox'],
+      args: [
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--disable-gpu',
+        '--mute-audio',
+        '--disable-extensions',
+        // '--no-zygote',
+        // '--diable-setuid-sandbox',
+        // '--single-process',
+      ],
       ignoreHTTPSErrors: true,
     });
   } catch (e) {
