@@ -12,7 +12,7 @@ const startBrowser = async (): Promise<Browser | undefined> => {
         '--no-first-run',
         '--disable-gpu',
         '--mute-audio',
-        '--disable-extensions',
+        // '--disable-extensions',
         // '--no-zygote',
         // '--diable-setuid-sandbox',
         // '--single-process',

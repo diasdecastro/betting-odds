@@ -86,8 +86,8 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           ?.games.push({
             link: link,
             date: getStandardizedDateFormat(date, 'bet-at-home'),
-            team1: team1.trim(),
-            team2: team2.trim(),
+            team1: team1?.trim(),
+            team2: team2?.trim(),
             odds: {
               team1Win: getStandardizedOddsFormat(team1Win),
               draw: getStandardizedOddsFormat(draw),
