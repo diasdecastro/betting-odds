@@ -1,7 +1,7 @@
 'use client'; //TODO: Andere Lösung suchen
 import { useEffect, useState } from 'react';
 import bundler from '@lib/data/bundler';
-import arbitrageCalculator from '@lib/data/arbitrageCalculator';
+import arbitrageCalculator from '@lib/data/arbitrageFinder';
 import {
   _888DummyData,
   bwinDummyData,

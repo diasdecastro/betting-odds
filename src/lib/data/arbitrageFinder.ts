@@ -25,7 +25,7 @@ interface ArbitrageBets {
 // TODO: Typen strikter machen
 // TODO: Error Handling
 // TODO: Optimale Strategie implementieren
-const arbitrageCalculator = (
+const arbitrageFinder = (
   competitionBundleArr: CompetitionBundle[]
 ): ArbitrageBets[] => {
   const results: ArbitrageBets[] = [];
@@ -83,7 +83,7 @@ const arbitrageCalculator = (
   return results;
 };
 
-export default arbitrageCalculator;
+export default arbitrageFinder;
 
 /* 
   Beispiel für competitionBundle:
