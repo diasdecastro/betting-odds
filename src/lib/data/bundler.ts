@@ -18,6 +18,7 @@ die Spiele zusammen */
 //TODO: Typen strikter machen
 //TODO: Error Handling
 const bundler = (...bookieScrapedData: any[][]): CompetitionBundle[] => {
+  console.log('game');
   let allScrapedData: any[][] = [];
   let results: CompetitionBundle[] = [];
   for (const dataFromBookie of bookieScrapedData) {
