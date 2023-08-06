@@ -1,3 +1,10 @@
+// const competitionUrlList = [
+//   {
+//     competition: 'ARG / Primera B',
+//     url: 'https://www.betano.de/sport/fussball/argentinien/primera-b-metropolitana/17532r/',
+//   },
+// ];
+
 //TODO: Alle Wettbewerbe integrieren
 const competitionUrlList = [
   {

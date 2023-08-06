@@ -89,7 +89,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           .eq(0)
           .text();
         const team2 = $(
-          'events-list__grid__info__main__participants__participant-name'
+          '.events-list__grid__info__main__participants__participant-name'
         )
           .eq(1)
           .text();

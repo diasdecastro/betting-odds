@@ -36,7 +36,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
     competitionUrlList,
     winamaxScrapeUrl
   );
-  // console.log('test: ', scrapedData);
+  // console.log('test: ', scrapedData[0]);
 
   if (scrapedData.length === 0) return;
 
@@ -72,11 +72,11 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         const date = $('.sc-gBztCq').eq(0).text();
 
         // TODO: Fall Spiel ist live
-        const team1 = $('.sc-ESujJ').text();
-        const team2 = $('.sc-eEOqmf').text();
-        const team1Win = $('.sc-hcBrtU').eq(0).text();
-        const draw = $('.sc-hcBrtU').eq(1).text();
-        const team2Win = $('.sc-hcBrtU').eq(2).text();
+        const team1 = $('.iZFAqR').eq(0).text();
+        const team2 = $('.iZFAqR').eq(1).text();
+        const team1Win = $('.buBrZr').eq(0).text();
+        const draw = $('.buBrZr').eq(1).text();
+        const team2Win = $('.buBrZr').eq(2).text();
 
         games
           ?.find(

@@ -1,4 +1,10 @@
 //TODO: Alle Wettbewerbe integrieren
+/* const competitionUrlList = [
+  {
+    competition: 'ARG / Primera B',
+    url: 'https://www.winamax.de/sportwetten/sports/1/48/85016',
+  },
+]; */
 const competitionUrlList = [
   {
     competition: 'ARG / Primera B',

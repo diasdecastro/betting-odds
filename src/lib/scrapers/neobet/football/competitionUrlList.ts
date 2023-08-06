@@ -1,4 +1,10 @@
 //TODO: Alle Wettbewerbe integrieren
+/* const competitionUrlList = [
+  {
+    competition: 'PRY / Primera División',
+    url: 'https://neobet.de/de/Sportwetten/Fussball/Paraguay/Primera-Division',
+  },
+]; */
 const competitionUrlList = [
   {
     competition: 'ARG / Primera B',

@@ -36,7 +36,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
     competitionUrlList,
     neobetScrapeUrl
   );
-  // console.log('test: ', scrapedData);
+  // console.log('test: ', scrapedData[1]);
 
   if (scrapedData.length === 0) return;
 

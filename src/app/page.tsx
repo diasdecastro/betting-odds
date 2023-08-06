@@ -22,7 +22,7 @@ import {
 const Home = () => {
   const [state, setState] = useState([]);
   useEffect(() => {
-    const test = arbitrageFinder(
+    /*  const test = arbitrageFinder(
       bundler(
         _888sport,
         // admiralbet,
@@ -39,6 +39,22 @@ const Home = () => {
         tipwin
         // winamax
       )
+    ); */
+    const test = bundler(
+      _888sport,
+      // admiralbet,
+      // betAtHome,
+      betano,
+      bwin,
+      hpyBet,
+      merkurSports,
+      neobet,
+      oddset,
+      sportingbet,
+      spreadex,
+      tipico,
+      tipwin
+      // winamax
     );
     setState(test);
   }, []);

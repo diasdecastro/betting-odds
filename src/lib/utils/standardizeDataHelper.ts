@@ -97,7 +97,6 @@ export const getStandardizedDateFormat = (
   // admiralbet format "DD.MM HH:mm"
   else if (
     source == 'admiralbet' ||
-    source === 'neobet' ||
     source === 'merkur-sports' ||
     source === 'tipwin'
   ) {
@@ -107,6 +106,25 @@ export const getStandardizedDateFormat = (
   // winamax Format "DD MMM YYYY um 21:00"
   else if (source === 'winamax') {
     return moment(dateString.replace('um ', ''), 'DD MMM HH:mm').toDate();
+  }
+
+  //
+  else if (source === 'neobet') {
+    const dateTimeSplit = dateString.split(' ');
+
+    if (dateTimeSplit[0] === 'Heute') {
+      const dateTimeString =
+        moment().format('DD.MM.YYYY') + ' ' + dateTimeSplit[1];
+
+      return moment(dateTimeString, 'DD.MM.YYYY HH:mm').toDate();
+    } else if (dateTimeSplit[0] === 'Morgen') {
+      const dateTimeString =
+        moment().add(1, 'day').format('DD.MM.YYYY') + ' ' + dateTimeSplit[1];
+
+      return moment(dateTimeString, 'DD.MM.YYYY HH:mm').toDate();
+    }
+
+    return moment(dateString, 'DD.MM HH:mm').year(moment().year()).toDate();
   }
   return moment('00.00.0000 00:00', 'DD.MM.YYYY HH:mm').toDate(); //Return invalides Date Objekt
 };

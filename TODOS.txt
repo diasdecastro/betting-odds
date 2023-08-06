@@ -3,6 +3,6 @@ TODO: Ich glaube, dass wir automatisierte Tests brauchen
 TODO: Datenbank muss implementiert werden (hoffentlich nicht so schwer)
 TODO: Date format Funktion optimieren
 TODO: Bei getGames skippen, wenn Daten fehlen (z.B. Mannschaftsname oder Datum)
-
+FIXME: neobet funktioniert nicht richtig
 Extra Länder: Costa Rica, Estland, Färöer, Honduras, Lettland, Montenegro, Nicaragua, Nordirland, Panama, Saudi Arabien,
   Südafrika, Ukraine, Venezuela, Wales, Bosnien und Herzegowina
