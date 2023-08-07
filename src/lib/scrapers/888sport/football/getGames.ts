@@ -6,6 +6,7 @@ import {
   getStandardizedDateFormat,
   getStandardizedOddsFormat,
 } from '@lib/utils/standardizeDataHelper';
+import { connectDb } from '@lib/utils/db';
 
 /* TODO: Typ Definition auslagern */
 /* Datenstruktur für Fussball */
@@ -31,6 +32,8 @@ interface FootballModel {
 /* Gibt Array mit Einträge des Typens FootballModel zurück */
 const getGames = async (): Promise<FootballModel[] | void> => {
   const games: FootballModel[] = [];
+
+  const conn = await connectDb();
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
@@ -58,17 +61,17 @@ const getGames = async (): Promise<FootballModel[] | void> => {
         competitionCountry = competitionData.split(' / ')[0];
         competitionName = competitionData.split(' / ')[1];
 
-        games.push({
+        /* games.push({
           bookie: '888sport',
           competition: {
             country: competitionCountry,
             name: competitionName,
           },
           games: [],
-        });
+        }); */
       } else {
         [...$('.eventList__content-section')].forEach((gameDay) => {
-          [...$(gameDay).find('.bet-card')].forEach((game) => {
+          [...$(gameDay).find('.bet-card')].forEach(async (game) => {
             const date = $(game).find('time').attr('datetime') || '';
 
             const link = $(game).find('.event-description').attr('href') || '';
@@ -92,7 +95,43 @@ const getGames = async (): Promise<FootballModel[] | void> => {
               .eq(2)
               .text();
 
-            games
+            await conn
+              .query(
+                `
+                  INSERT INTO 888_sport_football_games 
+                    (
+                      competition_country, 
+                      competition_name, 
+                      match_link, 
+                      match_datetime, 
+                      team1_name, 
+                      team2_name, 
+                      odds_team1, 
+                      odds_draw, 
+                      odds_team2
+                    )
+                  VALUES 
+                    ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
+                `,
+                [
+                  competitionCountry,
+                  competitionName,
+                  link,
+                  getStandardizedDateFormat(date, '888sport'),
+                  team1,
+                  team2,
+                  getStandardizedOddsFormat(team1Win),
+                  getStandardizedOddsFormat(draw),
+                  getStandardizedOddsFormat(team2Win),
+                ]
+              )
+              .catch((err) => {
+                console.log(err);
+                // conn.end();
+              });
+          });
+
+          /* games
               ?.find(
                 (obj) =>
                   obj.competition.country === competitionCountry &&
@@ -109,8 +148,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
                   draw: getStandardizedOddsFormat(draw),
                   team2Win: getStandardizedOddsFormat(team2Win),
                 },
-              });
-          });
+              }); */
         });
       }
     });

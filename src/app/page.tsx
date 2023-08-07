@@ -1,4 +1,4 @@
-'use client'; //TODO: Andere Lösung suchen
+// 'use client'; //TODO: Andere Lösung suchen
 import { useEffect, useState } from 'react';
 import bundler from '@lib/data/bundler';
 import arbitrageFinder from '@lib/data/arbitrageFinder';

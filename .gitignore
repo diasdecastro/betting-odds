@@ -38,3 +38,7 @@ TODO.txt
 Notes.txt
 
 formetoknow.txt
+
+.env
+
+!.env.local
