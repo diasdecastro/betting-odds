@@ -42,13 +42,13 @@ const getGames = async (): Promise<void> => {
         const link = $('a').eq(0).attr('href') || '';
         const date = $('.date').text();
         // TODO: Fall Spiel ist live
-        const team1 = $('a').eq(0).text().split(' - ')[0];
-        const team2 = $('a').eq(0).text().split(' - ')[1];
+        const team1 = $('a').eq(0).text().split(' - ')[0]?.trim();
+        const team2 = $('a').eq(0).text().split(' - ')[1]?.trim();
         const team1Win = $('.ods-odd-link').eq(0).text();
         const draw = $('.ods-odd-link').eq(1).text();
         const team2Win = $('.ods-odd-link').eq(2).text();
 
-        await storeGameData(conn, 'football', 'bet_at_home_football_games', [
+        await storeGameData(conn, 'bet_at_home_football_games', [
           competitionCountry,
           competitionName,
           link,

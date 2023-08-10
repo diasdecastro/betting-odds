@@ -1,4 +1,18 @@
 //TODO: Alphabetisch sortieren
+/* const competitionUrlList = [
+  {
+    competition: 'AUT / Bundesliga',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/%C3%B6sterreich-8/bundesliga-102835',
+  },
+  {
+    competition: 'AUT / Austrian Cup',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/%C3%B6sterreich-8/%C3%B6fb-cup-102721',
+  },
+  {
+    competition: 'BEL / Pro League',
+    url: 'https://sports.bwin.de/de/sports/fu%C3%9Fball-4/wetten/belgien-35/jupiler-pro-league-0:12',
+  },
+]; */
 const competitionUrlList = [
   //europe
   {

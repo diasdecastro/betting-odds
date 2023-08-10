@@ -63,7 +63,7 @@ const getGames = async (): Promise<void> => {
           .eq(2)
           .text();
 
-        await storeGameData(conn, 'football', 'neobet_football_games', [
+        await storeGameData(conn, 'neobet_football_games', [
           competitionCountry,
           competitionName,
           link,

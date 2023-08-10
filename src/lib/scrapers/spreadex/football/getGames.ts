@@ -50,7 +50,7 @@ const getGames = async (): Promise<void> => {
           const draw = $(game).find('.spx-price-button').eq(1).text();
           const team2Win = $(game).find('.spx-price-button').eq(2).text();
 
-          await storeGameData(conn, 'football', 'spreadex_football_games', [
+          await storeGameData(conn, 'spreadex_football_games', [
             competitionCountry,
             competitionName,
             link,

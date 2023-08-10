@@ -52,7 +52,7 @@ const getGames = async (): Promise<void> => {
         const draw = $('.quote').eq(1).text();
         const team2Win = $('.quote').eq(2).text();
 
-        await storeGameData(conn, 'football', 'tipwin_football_games', [
+        await storeGameData(conn, 'tipwin_football_games', [
           competitionCountry,
           competitionName,
           link,

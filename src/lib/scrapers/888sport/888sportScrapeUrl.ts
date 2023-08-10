@@ -2,7 +2,7 @@ import { Page } from 'puppeteer';
 
 /* Scraping Logik für Betway */
 const _888sportScrapeUrl = async (
-  competitionUrlObj: { competition: string; url: string },
+  competition: string,
   page: Page
 ): Promise<string[]> => {
   try {
@@ -34,7 +34,7 @@ const _888sportScrapeUrl = async (
       return results;
     });
 
-    return [competitionUrlObj.competition, ...pageData];
+    return [competition, ...pageData];
   } catch (e) {
     //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];

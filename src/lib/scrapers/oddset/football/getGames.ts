@@ -60,7 +60,7 @@ const getGames = async (): Promise<void> => {
           .eq(2)
           .text();
 
-        await storeGameData(conn, 'football', 'oddset_football_games', [
+        await storeGameData(conn, 'oddset_football_games', [
           competitionCountry,
           competitionName,
           link,

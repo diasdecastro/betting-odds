@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import startBrowser from './browser';
+import startCluster from './browserCluster';
 
 interface CompetitionUrlObject {
   competition: string;
@@ -10,51 +10,41 @@ interface CompetitionUrlObject {
 gibt die Ergebnisse zurück */
 const scrapeAllUrls = async (
   competitionUrlList: CompetitionUrlObject[],
-  scrapeSingleUrl: (
-    competitionUrlObj: CompetitionUrlObject,
-    page: Page
-  ) => Promise<string[]>
+  scrapeSingleUrl: (competition: string, page: Page) => Promise<string[]>
 ): Promise<string[][]> => {
-  const browser = await startBrowser();
-
-  if (browser === undefined) throw new Error('Browser is undefined');
-
   const scrapedData: string[][] = [];
 
-  const promises: Promise<void>[] = competitionUrlList.map(
-    async (competitionUrlObj) => {
-      if (competitionUrlObj.url === '') {
-        return;
-      }
+  const cluster = await startCluster();
 
-      const page = await browser.newPage();
+  if (cluster === undefined) throw new Error('Cluster is undefined');
 
-      //Macht, dass die Seite richtig geladen wird im headless mode
-      await page.setUserAgent(
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
-      );
+  await cluster.task(async ({ page, data: competitionUrlObj }) => {
+    //Macht, dass die Seite richtig geladen wird im headless mode
+    await page.setUserAgent(
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
+    );
+    //Fügt JQuery hinzu
+    await page.addScriptTag({
+      url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+    });
 
-      try {
-        await page.goto(competitionUrlObj.url, { timeout: 0 });
-      } catch (e) {
-        console.log(e.message);
-        await page.close();
-        return;
-      }
-      await page.addScriptTag({
-        url: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
-      });
+    await page.goto(competitionUrlObj.url);
 
-      const data: string[] = await scrapeSingleUrl(competitionUrlObj, page);
-      if (data !== undefined) scrapedData.push(data);
-      await page.close();
-    }
-  );
+    const data: string[] = await scrapeSingleUrl(
+      competitionUrlObj.competition,
+      page
+    );
+    if (data !== undefined) scrapedData.push(data);
+    await page.close();
+  });
 
-  await Promise.all(promises);
+  competitionUrlList.forEach((competitionUrlObj) => {
+    return cluster.queue(competitionUrlObj);
+  });
 
-  console.log('Closing Browser...');
-  await browser.close();
+  await cluster.idle();
+  console.log('Closing Cluster...');
+  await cluster.close();
   return scrapedData;
 };
 

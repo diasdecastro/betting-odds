@@ -58,12 +58,14 @@ const getGames = async (): Promise<void> => {
           '.events-list__grid__info__main__participants__participant-name'
         )
           .eq(0)
-          .text();
+          .text()
+          ?.trim();
         const team2 = $(
           '.events-list__grid__info__main__participants__participant-name'
         )
           .eq(1)
-          .text();
+          .text()
+          ?.trim();
         const team1Win = $('.selections')
           .eq(0)
           .find('.selections__selection__odd')
@@ -80,7 +82,7 @@ const getGames = async (): Promise<void> => {
           .eq(2)
           .text();
 
-        await storeGameData(conn, 'football', 'betano_football_games', [
+        await storeGameData(conn, 'betano_football_games', [
           competitionCountry,
           competitionName,
           link,

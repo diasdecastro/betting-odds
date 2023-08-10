@@ -3,7 +3,7 @@ import { Browser, Page } from 'puppeteer';
 /* Scraping Logik für spreadex */
 /* TODO: Saubermachen */
 const spreadexScrapeUrl = async (
-  competitionUrlObj: { competition: string; url: string },
+  competition: string,
   page: Page
 ): Promise<string[]> => {
   try {
@@ -34,7 +34,7 @@ const spreadexScrapeUrl = async (
     //push competition url as last element for link. link for game is inaccessible.
     pageData.push(competitionUrlObj.url);
 
-    return [competitionUrlObj.competition, ...pageData];
+    return [competition, ...pageData];
   } catch (e) {
     //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];

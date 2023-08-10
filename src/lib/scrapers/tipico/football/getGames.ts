@@ -73,7 +73,7 @@ const getGames = async (): Promise<void> => {
               .eq(2)
               .text();
 
-            await storeGameData(conn, 'football', 'tipico_football_games', [
+            await storeGameData(conn, 'tipico_football_games', [
               competitionCountry,
               competitionName,
               link,

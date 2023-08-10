@@ -64,7 +64,7 @@ const getGames = async (): Promise<void> => {
           .eq(2)
           .text();
 
-        await storeGameData(conn, 'football', 'merkur_sports_football_games', [
+        await storeGameData(conn, 'merkur_sports_football_games', [
           competitionCountry,
           competitionName,
           link,

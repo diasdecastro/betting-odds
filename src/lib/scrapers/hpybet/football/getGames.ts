@@ -62,7 +62,7 @@ const getGames = async (): Promise<void> => {
           .eq(-3)
           .text();
 
-        await storeGameData(conn, 'football', 'hpybet_football_games', [
+        await storeGameData(conn, 'hpybet_football_games', [
           competitionCountry,
           competitionName,
           link,

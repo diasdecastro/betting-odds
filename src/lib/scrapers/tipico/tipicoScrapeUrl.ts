@@ -1,7 +1,7 @@
 import { Page } from 'puppeteer';
 
 const tipicoScrapeUrl = async (
-  competitionUrlObj: { competition: string; url: string },
+  competition: string,
   page: Page
 ): Promise<string[]> => {
   try {
@@ -39,7 +39,7 @@ const tipicoScrapeUrl = async (
       return results;
     });
 
-    return [competitionUrlObj.competition, ...pageData];
+    return [competition, ...pageData];
   } catch (e) {
     //TODO: Fehler richtig abfangen und nur leeres Array returnen, wenn ein Timeout beim warten auf Selector vorliegt
     return [''];

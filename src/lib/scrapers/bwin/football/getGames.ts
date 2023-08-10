@@ -9,7 +9,6 @@ import {
 import { connectDb } from '@lib/utils/db';
 import storeGameData from '@lib/data/storeGameData';
 
-/* Gibt Array mit Einträge des Typens FootballModel zurück */
 const getGames = async (): Promise<void> => {
   const conn = connectDb();
 
@@ -49,11 +48,13 @@ const getGames = async (): Promise<void> => {
         const team1 = $('.participants-pair-game > .participant-wrapper')
           .eq(0)
           .find('.participant')
-          .text();
+          .text()
+          ?.trim();
         const team2 = $('.participants-pair-game > .participant-wrapper')
           .eq(1)
           .find('.participant')
-          .text();
+          .text()
+          ?.trim();
         const team1Win = $('.grid-event-wrapper')
           .find('.grid-option-group')
           .eq(0)
@@ -73,7 +74,7 @@ const getGames = async (): Promise<void> => {
           .eq(2)
           .text();
 
-        await storeGameData(conn, 'football', 'bwin_football_games', [
+        await storeGameData(conn, 'bwin_football_games', [
           competitionCountry,
           competitionName,
           link,

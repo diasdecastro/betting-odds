@@ -2,7 +2,7 @@ import { Page } from 'puppeteer';
 
 /* Scraping Logik für Betway */
 const bwinScrapeUrl = async (
-  competitionUrlObj: { competition: string; url: string },
+  competition: string,
   page: Page
 ): Promise<string[]> => {
   try {
@@ -30,7 +30,7 @@ const bwinScrapeUrl = async (
       return results;
     });
 
-    return [competitionUrlObj.competition, ...pageData];
+    return [competition, ...pageData];
   } catch (e) {
     return [''];
   }

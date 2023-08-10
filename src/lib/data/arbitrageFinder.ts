@@ -16,7 +16,6 @@ interface ArbitrageBets {
   };
   arbitrageOportunities: {
     games: object[][];
-    // strategy: object;
   }[];
 }
 

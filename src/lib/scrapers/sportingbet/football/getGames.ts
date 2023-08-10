@@ -49,7 +49,7 @@ const getGames = async (): Promise<void> => {
         const draw = $('.option-value').eq(1).text();
         const team2Win = $('.option-value').eq(2).text();
 
-        await storeGameData(conn, 'football', 'sportingbet_football_games', [
+        await storeGameData(conn, 'sportingbet_football_games', [
           competitionCountry,
           competitionName,
           link,

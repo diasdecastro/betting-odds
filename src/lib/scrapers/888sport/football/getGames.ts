@@ -45,9 +45,17 @@ const getGames = async (): Promise<void> => {
 
             const link = $(game).find('.event-description').attr('href') || '';
 
-            const team1 = $(game).find('.event-name__text').eq(0).text();
+            const team1 = $(game)
+              .find('.event-name__text')
+              .eq(0)
+              .text()
+              ?.trim();
 
-            const team2 = $(game).find('.event-name__text').eq(1).text();
+            const team2 = $(game)
+              .find('.event-name__text')
+              .eq(1)
+              .text()
+              ?.trim();
 
             const team1Win = $(game)
               .find('.bb-sport-event__selection')
@@ -64,7 +72,7 @@ const getGames = async (): Promise<void> => {
               .eq(2)
               .text();
 
-            await storeGameData(conn, 'football', '888_sport_football_games', [
+            await storeGameData(conn, '888_sport_football_games', [
               competitionCountry,
               competitionName,
               link,

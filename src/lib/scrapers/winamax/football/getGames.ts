@@ -49,7 +49,7 @@ const getGames = async (): Promise<void> => {
         const draw = $('.buBrZr').eq(1).text();
         const team2Win = $('.buBrZr').eq(2).text();
 
-        await storeGameData(conn, 'football', 'winamax_football_games', [
+        await storeGameData(conn, 'winamax_football_games', [
           competitionCountry,
           competitionName,
           link,

@@ -3,9 +3,9 @@ import { Pool } from 'mysql2/promise';
 //NOTE: Type wird später die unterschiedlichen Wettformate festlegen (z.B. W-D-L vs. W-L )
 const storeGameData = async (
   conn: Pool,
-  type: string,
   table: string,
-  data: Array<any>
+  data: Array<any>,
+  options: object = {}
 ): Promise<void> => {
   try {
     conn.query(

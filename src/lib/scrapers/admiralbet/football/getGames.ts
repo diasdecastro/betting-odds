@@ -49,11 +49,13 @@ const getGames = async (): Promise<void> => {
         const team1 = $('asw-mini-scoreboard-competitors')
           .find('div')
           .eq(0)
-          .text();
+          .text()
+          ?.trim();
         const team2 = $('asw-mini-scoreboard-competitors')
           .find('div')
           .eq(1)
-          .text();
+          .text()
+          ?.trim();
         const team1Win = $('asw-sports-grid-row-market')
           .eq(0)
           .find('asw-sports-grid-row-selection')
@@ -70,7 +72,7 @@ const getGames = async (): Promise<void> => {
           .eq(2)
           .text();
 
-        await storeGameData(conn, 'football', 'admiralbet_football_games', [
+        await storeGameData(conn, 'admiralbet_football_games', [
           competitionCountry,
           competitionName,
           link,
