@@ -1,11 +1,19 @@
 //TODO: Alphabetisch sortieren
-const competitionUrlList = [
+/* const competitionUrlList = [
   {
     competition: 'AUT / Bundesliga',
     url: 'https://www.888sport.de/fu%C3%9Fball/%C3%B6sterreich/%C3%B6sterreich-bundesliga-t-321533/',
   },
-];
-/* const competitionUrlList = [
+  {
+    competition: 'FRA / Ligue 1',
+    url: 'https://www.888sport.de/fussball/frankreich/ligue-1/',
+  },
+  {
+    competition: 'FRA / Ligue 2',
+    url: 'https://www.888sport.de/fu%C3%9Fball/frankreichs/frankreich-ligue-2-t-319564/',
+  },
+]; */
+const competitionUrlList = [
   //europa
   {
     competition: 'AUT / Bundesliga',
@@ -335,6 +343,6 @@ const competitionUrlList = [
     competition: 'EGY / Premier League',
     url: 'https://www.888sport.de/fu%C3%9Fball/%C3%A4gypten/egypt-premier-league-t-319816/',
   },
-]; */
+];
 
 export default competitionUrlList;

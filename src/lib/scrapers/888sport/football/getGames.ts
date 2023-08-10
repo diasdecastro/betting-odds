@@ -7,6 +7,7 @@ import {
   getStandardizedOddsFormat,
 } from '@lib/utils/standardizeDataHelper';
 import { connectDb } from '@lib/utils/db';
+import { count } from 'console';
 
 /* TODO: Typ Definition auslagern */
 /* Datenstruktur für Fussball */
@@ -30,7 +31,9 @@ interface FootballModel {
 }
 
 /* Gibt Array mit Einträge des Typens FootballModel zurück */
+//FIXME: Nur wenige Spiele landen in der DB
 const getGames = async (): Promise<FootballModel[] | void> => {
+  let count = 0;
   const games: FootballModel[] = [];
 
   const conn = await connectDb();
@@ -60,15 +63,6 @@ const getGames = async (): Promise<FootballModel[] | void> => {
 
         competitionCountry = competitionData.split(' / ')[0];
         competitionName = competitionData.split(' / ')[1];
-
-        /* games.push({
-          bookie: '888sport',
-          competition: {
-            country: competitionCountry,
-            name: competitionName,
-          },
-          games: [],
-        }); */
       } else {
         [...$('.eventList__content-section')].forEach((gameDay) => {
           [...$(gameDay).find('.bet-card')].forEach(async (game) => {
@@ -95,6 +89,8 @@ const getGames = async (): Promise<FootballModel[] | void> => {
               .eq(2)
               .text();
 
+            console.log('I: ', count);
+            count += 1;
             await conn
               .query(
                 `
@@ -112,6 +108,11 @@ const getGames = async (): Promise<FootballModel[] | void> => {
                     )
                   VALUES 
                     ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
+                  ON DUPLICATE KEY UPDATE
+                      match_link = ?,
+                      odds_team1 = ?,
+                      odds_draw = ?,
+                      odds_team2 = ?
                 `,
                 [
                   competitionCountry,
@@ -123,32 +124,18 @@ const getGames = async (): Promise<FootballModel[] | void> => {
                   getStandardizedOddsFormat(team1Win),
                   getStandardizedOddsFormat(draw),
                   getStandardizedOddsFormat(team2Win),
+                  link,
+                  getStandardizedOddsFormat(team1Win),
+                  getStandardizedOddsFormat(draw),
+                  getStandardizedOddsFormat(team2Win),
                 ]
               )
               .catch((err) => {
                 console.log(err);
                 // conn.end();
               });
+            console.log('II: ', count);
           });
-
-          /* games
-              ?.find(
-                (obj) =>
-                  obj.competition.country === competitionCountry &&
-                  obj.competition.name === competitionName
-              )
-              ?.games.push({
-                link: link,
-                date: getStandardizedDateFormat(date, '888sport'),
-                team1: team1.trim(),
-                team2: team2.trim(),
-                //TODO: Odds richtig interpretieren, sodass es einheitlich ist.
-                odds: {
-                  team1Win: getStandardizedOddsFormat(team1Win),
-                  draw: getStandardizedOddsFormat(draw),
-                  team2Win: getStandardizedOddsFormat(team2Win),
-                },
-              }); */
         });
       }
     });
