@@ -1,0 +1,19 @@
+NOTE: /* Datenstruktur für Fussball */  
+interface FootballModel {
+  bookie: string;
+  competition: {
+    country: string;
+    name: string;
+  };
+  games: {
+    link: string;
+    date: Date;
+    team1: string;
+    team2: string;
+    odds: {
+      team1Win: number;
+      draw: number;
+      team2Win: number;
+    };
+  }[];
+}

@@ -6,37 +6,17 @@ import {
   getStandardizedDateFormat,
   getStandardizedOddsFormat,
 } from '@lib/utils/standardizeDataHelper';
-
-/* TODO: Typ Definition auslagern */
-/* Datenstruktur für Fussball */
-interface FootballModel {
-  bookie: string;
-  competition: {
-    country: string;
-    name: string;
-  };
-  games: {
-    link: string;
-    date: Date;
-    team1: string;
-    team2: string;
-    odds: {
-      team1Win: number;
-      draw: number;
-      team2Win: number;
-    };
-  }[];
-}
+import { connectDb } from '@lib/utils/db';
+import storeGameData from '@lib/data/storeGameData';
 
 /* Gibt Array mit Einträge des Typens FootballModel zurück */
-const getGames = async (): Promise<FootballModel[] | void> => {
-  const games: FootballModel[] = [];
+const getGames = async (): Promise<void> => {
+  const conn = connectDb();
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
     admiralbetScrapeUrl
   );
-  // console.log('test: ', scrapedData);
 
   if (scrapedData.length === 0) return;
 
@@ -47,7 +27,7 @@ const getGames = async (): Promise<FootballModel[] | void> => {
     // Wenn das Element leer ist, spring zum nächsten
     if (!competition[0]) return;
 
-    competition.map((competitionData, index) => {
+    competition.map(async (competitionData, index) => {
       const $ = load(competitionData);
 
       /* Das erste Element der Array mit den gescrapten Daten eines einzelnen Wettbewerbs 
@@ -58,15 +38,6 @@ const getGames = async (): Promise<FootballModel[] | void> => {
 
         competitionCountry = competitionData.split(' / ')[0];
         competitionName = competitionData.split(' / ')[1];
-
-        games.push({
-          bookie: 'admiralbet',
-          competition: {
-            country: competitionCountry,
-            name: competitionName,
-          },
-          games: [],
-        });
       } else {
         const link = $('a').eq(0).attr('href') || '';
         let date = $('asw-mini-scoreboard-phases')
@@ -99,28 +70,26 @@ const getGames = async (): Promise<FootballModel[] | void> => {
           .eq(2)
           .text();
 
-        games
-          ?.find(
-            (obj) =>
-              obj.competition.country === competitionCountry &&
-              obj.competition.name === competitionName
-          )
-          ?.games.push({
-            link: link,
-            date: getStandardizedDateFormat(date, 'admiralbet'),
-            team1: team1.trim(),
-            team2: team2.trim(),
-            odds: {
-              team1Win: getStandardizedOddsFormat(team1Win),
-              draw: getStandardizedOddsFormat(draw),
-              team2Win: getStandardizedOddsFormat(team2Win),
-            },
-          });
+        await storeGameData(conn, 'football', 'admiralbet_football_games', [
+          competitionCountry,
+          competitionName,
+          link,
+          getStandardizedDateFormat(date, 'admiralbet'),
+          team1,
+          team2,
+          getStandardizedOddsFormat(team1Win),
+          getStandardizedOddsFormat(draw),
+          getStandardizedOddsFormat(team2Win),
+          getStandardizedDateFormat('', 'now'),
+          false,
+          link,
+          getStandardizedOddsFormat(team1Win),
+          getStandardizedOddsFormat(draw),
+          getStandardizedOddsFormat(team2Win),
+        ]);
       }
     });
   });
-
-  return games;
 };
 
 export default getGames;

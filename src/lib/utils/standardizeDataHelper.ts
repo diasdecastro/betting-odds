@@ -5,6 +5,10 @@ export const getStandardizedDateFormat = (
   dateString: string,
   source: string
 ): Date => {
+  if (source === 'now') {
+    return new Date(moment().format('DD.MM.YYYY HH:mm'));
+  }
+
   // Tipico hat 2 verschiedene Formate. Entweder "heute, HH:mm" oder "Tag, DD.MM, HH:mm"
   if (source === 'tipico') {
     const dateTimeSplit = dateString.split(', ');

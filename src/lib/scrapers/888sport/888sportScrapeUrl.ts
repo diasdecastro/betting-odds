@@ -14,10 +14,6 @@ const _888sportScrapeUrl = async (
         ).length,
       { timeout: 0 }
     );
-    //Warte bis Spiele geladen sind
-    /* await page.waitForSelector(
-      '.eventList__content-section, .bb-message-button-card'
-    ); */
 
     //if no games, return empty
     const pageHasNoGames = (await page.$('.bb-message-button-card')) !== null;

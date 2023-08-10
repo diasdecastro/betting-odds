@@ -7,36 +7,11 @@ import {
   getStandardizedOddsFormat,
 } from '@lib/utils/standardizeDataHelper';
 import { connectDb } from '@lib/utils/db';
-import { count } from 'console';
-
-/* TODO: Typ Definition auslagern */
-/* Datenstruktur für Fussball */
-interface FootballModel {
-  bookie: string;
-  competition: {
-    country: string;
-    name: string;
-  };
-  games: {
-    link: string;
-    date: Date;
-    team1: string;
-    team2: string;
-    odds: {
-      team1Win: number;
-      draw: number;
-      team2Win: number;
-    };
-  }[];
-}
+import storeGameData from '@lib/data/storeGameData';
 
 /* Gibt Array mit Einträge des Typens FootballModel zurück */
-//FIXME: Nur wenige Spiele landen in der DB
-const getGames = async (): Promise<FootballModel[] | void> => {
-  let count = 0;
-  const games: FootballModel[] = [];
-
-  const conn = await connectDb();
+const getGames = async (): Promise<void> => {
+  const conn = connectDb();
 
   const scrapedData: string[][] | undefined = await scrapeAllUrls(
     competitionUrlList,
@@ -89,59 +64,28 @@ const getGames = async (): Promise<FootballModel[] | void> => {
               .eq(2)
               .text();
 
-            console.log('I: ', count);
-            count += 1;
-            await conn
-              .query(
-                `
-                  INSERT INTO 888_sport_football_games 
-                    (
-                      competition_country, 
-                      competition_name, 
-                      match_link, 
-                      match_datetime, 
-                      team1_name, 
-                      team2_name, 
-                      odds_team1, 
-                      odds_draw, 
-                      odds_team2
-                    )
-                  VALUES 
-                    ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
-                  ON DUPLICATE KEY UPDATE
-                      match_link = ?,
-                      odds_team1 = ?,
-                      odds_draw = ?,
-                      odds_team2 = ?
-                `,
-                [
-                  competitionCountry,
-                  competitionName,
-                  link,
-                  getStandardizedDateFormat(date, '888sport'),
-                  team1,
-                  team2,
-                  getStandardizedOddsFormat(team1Win),
-                  getStandardizedOddsFormat(draw),
-                  getStandardizedOddsFormat(team2Win),
-                  link,
-                  getStandardizedOddsFormat(team1Win),
-                  getStandardizedOddsFormat(draw),
-                  getStandardizedOddsFormat(team2Win),
-                ]
-              )
-              .catch((err) => {
-                console.log(err);
-                // conn.end();
-              });
-            console.log('II: ', count);
+            await storeGameData(conn, 'football', '888_sport_football_games', [
+              competitionCountry,
+              competitionName,
+              link,
+              getStandardizedDateFormat(date, '888sport'),
+              team1,
+              team2,
+              getStandardizedOddsFormat(team1Win),
+              getStandardizedOddsFormat(draw),
+              getStandardizedOddsFormat(team2Win),
+              getStandardizedDateFormat('', 'now'),
+              false,
+              link,
+              getStandardizedOddsFormat(team1Win),
+              getStandardizedOddsFormat(draw),
+              getStandardizedOddsFormat(team2Win),
+            ]);
           });
         });
       }
     });
   });
-
-  return games;
 };
 
 export default getGames;
